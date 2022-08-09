@@ -1,16 +1,16 @@
 .item {
-position: relative;
+  position: relative;
 
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
 
-gap: var(--x1);
+  gap: var(--x1);
 
-text-align: center;
-/* background-color: tomato; */
+  text-align: center;
+  /* background-color: tomato; */
 }
 
 .counter {

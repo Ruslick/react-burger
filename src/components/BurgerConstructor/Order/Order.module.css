@@ -3,11 +3,13 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: fit-content;
 }
 
 .list {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: calc(100% + var(--x2));
+  padding-right: var(--x2);
 }
-

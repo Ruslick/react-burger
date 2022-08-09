@@ -1,47 +1,35 @@
-import React from 'react'
-import styles from './Order.module.css'
-import OrderIngridient from './OrderIngridient/OrderIngridient'
-import data from '../../../utils/data.js'
+import React from "react";
+import styles from "./Order.module.css";
+import OrderIngridient from "./OrderIngridient/OrderIngridient";
+import data from "../../../utils/data.js";
 
+function Order() {
+	// позже она будет в пропах
+	// выбраная булочка
 
-
-
-function Order(selectedBun) {
-  
-  // позже она будет передаваться инеаче
-  // выбраная булочка
-  const {name, price, image, _id} = data[0]
-
-  return (
-
+	return (
 		<section
 			className={styles.wrapper}
 			style={{ height: window.innerHeight / 2 }}
 		>
 			<OrderIngridient
-				text={`${name} (верх)`}
-				price={price}
-				thumbnail={image}
+				// позже она будет в пропах
+				// выбраная булочка
+				ingridient={data[0]}
 				type={"top"}
 				isLocked={true}
 			/>
 			<div className={`${styles.list} scroll`}>
-				{data.map((ingridient, index, array) => {
-					const { name, price, image, _id } = ingridient;
+				{data.map((ingridient) => {
 					return (
-						<OrderIngridient
-							key={_id}
-							text={name}
-							price={price}
-							thumbnail={image}
-						/>
+						<OrderIngridient ingridient={ingridient} key={ingridient._id} />
 					);
 				})}
 			</div>
 			<OrderIngridient
-				text={`${name} (низ)`}
-				price={price}
-				thumbnail={image}
+				// позже она будет в пропах
+				// выбраная булочка
+				ingridient={data[0]}
 				type={"bottom"}
 				isLocked={true}
 			/>
@@ -49,5 +37,4 @@ function Order(selectedBun) {
 	);
 }
 
-export default Order
-
+export default Order;
