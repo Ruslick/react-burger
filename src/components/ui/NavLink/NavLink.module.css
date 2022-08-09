@@ -1,0 +1,19 @@
+.link {
+  display: flex;
+  text-decoration: none;
+  padding: var(--x5);
+  gap: var(--x2);
+  color: black;
+}
+
+
+.text {
+  color: var(--secondary);
+}
+
+.active {
+  color: var(--primary);
+}
+
+
+

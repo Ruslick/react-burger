@@ -1,0 +1,7 @@
+.constructorElement {
+  display: flex;
+  gap: var(--x2);
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}

@@ -1,0 +1,8 @@
+.wrapper {
+  margin-top: var(--x10);
+  margin-bottom: var(--x5);
+}
+
+.list {
+  padding: 0;
+}
