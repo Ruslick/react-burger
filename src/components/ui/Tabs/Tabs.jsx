@@ -1,16 +1,13 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import React from 'react'
+import styles from './Tabs.module.css'
+
 
 
 function BurgerIngridientsTabs() {
-  const [current, setCurrent] = React.useState('one')
+  const [current, setCurrent] = React.useState('bun')
   return (
-    <div style={
-      {
-        display:'flex', 
-        marginBottom: 'var(--x10)'
-      }
-      }>
+    <div className={styles.wrapper}>
       <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
         Булки
       </Tab>

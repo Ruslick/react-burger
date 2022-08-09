@@ -46,6 +46,8 @@ code {
 .scroll::-webkit-scrollbar {
   background-color: #2F2F37;
   width: 8px;
+  position: absolute;
+  right: em;
 }
 
 .scroll::-webkit-scrollbar-track {
@@ -59,9 +61,6 @@ code {
 .scroll::-webkit-scrollbar-button {
   display:none;
 }
-
-
-
 
 .active {
   color: var(--primary)

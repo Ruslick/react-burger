@@ -1,11 +1,13 @@
 import React from 'react'
 import Order from './Order/Order'
 import OrderInfo from './OrderInfo/OrderInfo'
+import styles from './BurgerConstructor.module.css'
+
 
 
 function BurgerConstructor() {
   return (
-    <div style={{padding: '0 var(--x4)'}}>
+    <div className={styles.wrapper}>
       <Order />
       <OrderInfo />
 

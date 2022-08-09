@@ -5,3 +5,8 @@
   justify-content: center;
   justify-items: center;
 }
+
+.iconWrapper {
+  width: 24px;
+  height: 24px !important;
+}
