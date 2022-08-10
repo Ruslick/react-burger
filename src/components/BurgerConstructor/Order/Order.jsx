@@ -20,7 +20,12 @@ function Order() {
 				isLocked={true}
 			/>
 			<div className={`${styles.list} scroll`}>
-				{data.map((ingridient) => {
+				{data
+        .filter(ingridient => {
+          if (ingridient.type ==='bun') return false;
+          return true
+        })
+        .map((ingridient) => {
 					return (
 						<OrderIngridient ingridient={ingridient} key={ingridient._id} />
 					);
