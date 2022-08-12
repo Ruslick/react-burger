@@ -1,15 +1,12 @@
 import React from "react";
 import styles from "./Order.module.css";
 import OrderIngridient from "./OrderIngridient/OrderIngridient";
-import data from "../../../utils/data.js";
 
-function Order() {
-	// позже она будет в пропах
-	// выбраная булочка
+function Order({ data }) {
 
 	return (
 		<section
-			className={styles.wrapper}
+			className={styles.wrapper + ' mt-25'}
 			style={{ height: window.innerHeight / 2 }}
 		>
 			<OrderIngridient
@@ -19,17 +16,17 @@ function Order() {
 				type={"top"}
 				isLocked={true}
 			/>
-			<div className={`${styles.list} scroll`}>
+			<div className={styles.list + ' scroll'}>
 				{data
-        .filter(ingridient => {
-          if (ingridient.type ==='bun') return false;
-          return true
-        })
-        .map((ingridient) => {
-					return (
-						<OrderIngridient ingridient={ingridient} key={ingridient._id} />
-					);
-				})}
+					.filter((ingridient) => {
+						if (ingridient.type === "bun") return false;
+						return true;
+					})
+					.map((ingridient) => {
+						return (
+							<OrderIngridient ingridient={ingridient} key={ingridient._id} />
+						);
+					})}
 			</div>
 			<OrderIngridient
 				// позже она будет в пропах

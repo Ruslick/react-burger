@@ -7,7 +7,7 @@ import styles from "./OrderInfo.module.css";
 
 function OrderInfo() {
 	return (
-		<section className={styles.orderInfo}>
+		<section className={styles.orderInfo + ' mt-10'}>
 			<div className={styles.price}>
 				<p className="text text_type_digits-medium">214124</p>
 				<CurrencyIcon type="primary" />

@@ -10,9 +10,9 @@ import NavLink from "../ui/NavLink/NavLink.jsx";
 
 function AppHeader() {
 	return (
-		<header className={styles.wrapper}>
+		<header className={styles.wrapper + ' mt-10 mr-10 ml-10'}>
 			<div className="container">
-				<section className={styles.header}>
+				<section className={styles.header  + ' pt-4 pb-4'}>
 					<div className={styles.leftMenu}>
 						<NavLink active icon={BurgerIcon}>
 							Конструктор

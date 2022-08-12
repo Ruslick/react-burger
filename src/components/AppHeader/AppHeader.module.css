@@ -6,14 +6,11 @@
   justify-items: center;
   align-items: center;
 
-  padding: var(--x4) 0;  
-
   position: relative;
 }
-.wrapper{
-  background-color: #1C1C21;
-  margin: var(--x10) var(--x10) 0 var(--x10);
 
+.wrapper {
+  background-color: #1C1C21;
 }
 
 .linkWrapper {
@@ -31,6 +28,5 @@
 
 
 .rightMenu {
-  right: -(var(--x4));
   justify-self: end;
 }

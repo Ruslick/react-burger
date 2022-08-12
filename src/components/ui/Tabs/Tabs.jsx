@@ -5,7 +5,7 @@ import styles from "./Tabs.module.css";
 function BurgerIngridientsTabs() {
 	const [current, setCurrent] = React.useState("bun");
 	return (
-		<div className={styles.wrapper}>
+		<div className={styles.wrapper + ' mb-10'}>
 			<Tab value="bun" active={current === "bun"} onClick={setCurrent}>
 				Булки
 			</Tab>

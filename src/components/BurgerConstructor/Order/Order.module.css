@@ -10,6 +10,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  /* для скролла pr-2 не подошел */
   width: calc(100% + var(--x2));
   padding-right: var(--x2);
 }

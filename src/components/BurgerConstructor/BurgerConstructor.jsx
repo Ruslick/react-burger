@@ -1,12 +1,11 @@
 import React from "react";
 import Order from "./Order/Order";
 import OrderInfo from "./OrderInfo/OrderInfo";
-import styles from "./BurgerConstructor.module.css";
 
-function BurgerConstructor() {
+function BurgerConstructor({data}) {
 	return (
-		<div className={styles.wrapper}>
-			<Order />
+		<div className='pr-4 pl-4'>
+			<Order data={data}/>
 			<OrderInfo />
 		</div>
 	);

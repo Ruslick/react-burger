@@ -4,10 +4,10 @@ import styles from "./BurgerIngridients.module.css";
 import PropTypes from "prop-types";
 import IngridientsList from "./IngridientsList/IngridientsList";
 
-function BurgerIngridients({ ingridients, ...props }) {
+function BurgerIngridients({ data, ...props }) {
 	return (
 		<section>
-			<div className={styles.wrapper}>
+			<div className='mt-10 mb-5'>
 				<p className="text text_type_main-large">Соберите бургер</p>
 			</div>
 			<Tabs />
@@ -15,13 +15,13 @@ function BurgerIngridients({ ingridients, ...props }) {
 				className={`${styles.list} scroll`}
 				style={{ height: window.innerHeight / 2 }}
 			>
-				<IngridientsList ingridients={ingridients} type="bun">
+				<IngridientsList ingridients={data} type="bun">
 					Булки
 				</IngridientsList>
-				<IngridientsList ingridients={ingridients} type="sauce">
+				<IngridientsList ingridients={data} type="sauce">
 					Cоусы
 				</IngridientsList>
-				<IngridientsList ingridients={ingridients} type="main">
+				<IngridientsList ingridients={data} type="main">
 					Начинки
 				</IngridientsList>
 			</ul>
@@ -30,7 +30,7 @@ function BurgerIngridients({ ingridients, ...props }) {
 }
 
 BurgerIngridients.propTypes = {
-	ingridients: PropTypes.arrayOf(PropTypes.object).isRequired,
+	data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default BurgerIngridients;

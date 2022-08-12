@@ -1,18 +1,36 @@
-import React from "react";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngridients from "../BurgerIngredients/BurgerIngridients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import data from "../../utils/data";
+// import data from "../../utils/data";
+import useFetch from "../hooks/useFetch";
+
+
+
 
 function App() {
-	return (
+	const {data, error} = useFetch('https://norma.nomoreparties.space/api/ingredients')
+	if (error) {
+		console.log(error)
+		return (
+		<h1>
+			{'Произошла ошибка :('}
+		</h1>
+		)
+	}
+
+	return ( 	
 		<>
 			<AppHeader />
 			<div className="container">
 				<section className={styles.wrapper}>
-					<BurgerIngridients ingridients={data} />
-					<BurgerConstructor />
+					{data ? (
+					<>
+						<BurgerIngridients data={data} />
+						<BurgerConstructor data={data}/>
+					</>
+					) : <div>loading...</div>}
+					
 				</section>
 			</div>
 		</>

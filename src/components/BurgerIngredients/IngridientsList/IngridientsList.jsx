@@ -7,7 +7,7 @@ function IngridientsList({ ingridients, type, children, ...props }) {
 	return (
 		<li className={styles.section}>
 			<p className="text text_type_main-medium">{children}</p>
-			<ul className={styles.list}>
+			<ul className={styles.list + ' mt-6 mb-6 mr-4 ml-4'}>
 				{ingridients
 
 					// распределение ингридинтов по типу (булки в булках, начинки в начинках)
