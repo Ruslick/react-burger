@@ -3,16 +3,15 @@ import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngridients from "../BurgerIngredients/BurgerIngridients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 // import data from "../../utils/data";
-import useFetch from "../hooks/useFetch";
+import useIngredientsFetch from "../../hooks/useIngredientsFetch";
 import { URL } from "../../utils/constants";
 
 function App() {
-	const { data, error } = useFetch(URL);
+	const { data, error } = useIngredientsFetch(URL);
 	if (error) {
 		console.log(error);
 		return <h1>{"Произошла ошибка :("}</h1>;
 	}
-
 	return (
 		<>
 			<AppHeader />

@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 
-const useFetch = (url) => {
+const useIngredientsFetch = (url) => {
 	const [response, setResponse] = useState({ error: false, data: null });
 
 	useEffect(() => {
 		async function doFetch(url) {
 			try {
 				const res = await fetch(url);
-				const json = await res.json();
-				setResponse({ ...response, data: json.data });
+				if (res.ok) {
+					const json = await res.json();
+					setResponse({ ...response, data: json.data });
+				}
 			} catch (e) {
 				setResponse({ ...response, error: e });
 			}
@@ -19,4 +21,4 @@ const useFetch = (url) => {
 	return response;
 };
 
-export default useFetch;
+export default useIngredientsFetch;

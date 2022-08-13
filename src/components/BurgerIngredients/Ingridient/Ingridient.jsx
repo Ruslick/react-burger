@@ -2,25 +2,18 @@ import {
 	Counter,
 	CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styles from "./Ingridient.module.css";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
 import { ingridientShape } from "../../../utils/types";
 
-function Ingridient({ ingridient, count, ...props }) {
+function Ingridient({ ingridient, count, openModal }) {
 	const { name, image, price } = ingridient;
-	const [isDisplayed, setIsDisplayed] = useState(false);
 
 	return (
 		<>
-			<li
-				className={styles.item}
-				onClick={() => {
-					setIsDisplayed(true);
-				}}
-			>
+			<li className={styles.item} onClick={() => openModal(ingridient)}>
 				<div className={styles.counter}>
 					{count ? <Counter count={count} size="default" /> : null}
 				</div>
@@ -32,14 +25,6 @@ function Ingridient({ ingridient, count, ...props }) {
 
 				<p className="text text_type_main-small">{name}</p>
 			</li>
-			{isDisplayed && (
-				<IngredientDetails
-					ingridient={ingridient}
-					onClose={() => {
-						setIsDisplayed(false);
-					}}
-				/>
-			)}
 		</>
 	);
 }
@@ -48,6 +33,7 @@ function Ingridient({ ingridient, count, ...props }) {
 Ingridient.propTypes = {
 	ingridient: PropTypes.shape(ingridientShape).isRequired,
 	count: PropTypes.number.isRequired,
+	openModal: PropTypes.func.isRequired,
 };
 
 export default Ingridient;

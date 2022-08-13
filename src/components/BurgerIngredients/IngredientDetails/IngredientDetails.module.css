@@ -22,15 +22,7 @@
   color: #8585AD;
 }
 
-.modelHeader {
-  display: flex;
-  justify-content: space-between;
-  justify-items: center;
-  align-items: center;
-  align-content: center;
 
-  gap: var(--x10);
-}
 
 .name {
   margin-bottom: 0;

@@ -3,7 +3,7 @@ import styles from "./IngridientsList.module.css";
 import PropTypes from "prop-types";
 import Ingridient from "../Ingridient/Ingridient";
 
-function IngridientsList({ ingridients, type, children, ...props }) {
+function IngridientsList({ ingridients, type, children, openModal }) {
 	return (
 		<li className={styles.section}>
 			<p className="text text_type_main-medium">{children}</p>
@@ -17,6 +17,7 @@ function IngridientsList({ ingridients, type, children, ...props }) {
 							key={ingridient._id}
 							ingridient={ingridient}
 							count={1}
+							openModal={openModal}
 						/>
 					))}
 			</ul>
@@ -28,6 +29,7 @@ IngridientsList.propTypes = {
 	ingridients: PropTypes.arrayOf(PropTypes.object).isRequired,
 	type: PropTypes.string.isRequired,
 	children: PropTypes.string.isRequired,
+	openModal: PropTypes.func.isRequired,
 };
 
 export default IngridientsList;
