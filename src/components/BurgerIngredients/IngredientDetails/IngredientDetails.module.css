@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+}
+
+.properties {
+  display: flex;
+
+  gap: var(--x5);
+
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+
+  text-align: center;
+  color: #8585AD;
+}
+
+.modelHeader {
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+
+  gap: var(--x10);
+}
+
+.name {
+  margin-bottom: 0;
+  overflow-wrap: break-word;
+  max-width: 20em;
+  text-align: center;
+}

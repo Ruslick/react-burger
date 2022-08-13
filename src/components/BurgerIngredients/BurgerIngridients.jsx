@@ -4,10 +4,10 @@ import styles from "./BurgerIngridients.module.css";
 import PropTypes from "prop-types";
 import IngridientsList from "./IngridientsList/IngridientsList";
 
-function BurgerIngridients({ data, ...props }) {
+function BurgerIngridients({ data }) {
 	return (
 		<section>
-			<div className='mt-10 mb-5'>
+			<div className="mt-10 mb-5">
 				<p className="text text_type_main-large">Соберите бургер</p>
 			</div>
 			<Tabs />

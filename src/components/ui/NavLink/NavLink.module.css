@@ -2,14 +2,5 @@
   display: flex;
   text-decoration: none;
   gap: var(--x2);
-  color: black;
-}
-
-
-.text {
-  color: var(--secondary);
-}
-
-.active {
-  color: var(--primary);
+  color: white;
 }

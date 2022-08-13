@@ -1,12 +1,11 @@
 import React from "react";
 import styles from "./Order.module.css";
 import OrderIngridient from "./OrderIngridient/OrderIngridient";
-
+import PropTypes from "prop-types";
 function Order({ data }) {
-
 	return (
 		<section
-			className={styles.wrapper + ' mt-25'}
+			className={styles.wrapper + " mt-25"}
 			style={{ height: window.innerHeight / 2 }}
 		>
 			<OrderIngridient
@@ -16,7 +15,7 @@ function Order({ data }) {
 				type={"top"}
 				isLocked={true}
 			/>
-			<div className={styles.list + ' scroll'}>
+			<div className={styles.list + " scroll"}>
 				{data
 					.filter((ingridient) => {
 						if (ingridient.type === "bun") return false;
@@ -39,4 +38,7 @@ function Order({ data }) {
 	);
 }
 
+Order.propTypes = {
+	data: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 export default Order;

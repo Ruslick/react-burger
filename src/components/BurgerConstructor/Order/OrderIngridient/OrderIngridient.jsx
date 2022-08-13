@@ -9,10 +9,12 @@ import { ingridientShape } from "../../../../utils/types";
 
 function OrderIngridient({ ingridient, isLocked, type }) {
 	const { name, price, image } = ingridient;
-  const prefixedName = 
-    (type === 'top') ? `${name} (верх)` : 
-    (type === 'bottom') ? `${name} (низ)` : 
-    name
+	const prefixedName =
+		type === "top"
+			? `${name} (верх)`
+			: type === "bottom"
+			? `${name} (низ)`
+			: name;
 
 	return (
 		<div className={styles.constructorElement}>
