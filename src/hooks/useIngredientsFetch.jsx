@@ -18,7 +18,7 @@ const useIngredientsFetch = (url) => {
 		doFetch(url);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [url]);
-	return response;
+	return response
 };
 
 export default useIngredientsFetch;
