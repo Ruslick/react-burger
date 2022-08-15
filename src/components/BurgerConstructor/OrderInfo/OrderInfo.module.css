@@ -1,0 +1,17 @@
+.orderInfo {
+  display: flex;
+  gap: var(--x10);
+  justify-content: flex-end;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  gap: var(--x2);
+}

@@ -1,0 +1,12 @@
+.constructorElement {
+  display: flex;
+  gap: var(--x2);
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.iconWrapper {
+  width: 24px;
+  height: 24px !important;
+}

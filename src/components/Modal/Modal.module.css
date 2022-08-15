@@ -1,0 +1,30 @@
+.modalOverlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, .6);
+  position: fixed;
+  top: 0;
+  z-index: 1;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  background-color: #1C1C21;
+  border-radius: 40px;
+}
+
+.modelHeader {
+  align-self: flex-end;
+  
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+
+  gap: var(--x10);
+}

@@ -1,0 +1,32 @@
+/* решить проблему с паддингом у leftMenu  и rightMenu */
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+
+  position: relative;
+}
+
+.wrapper {
+  background-color: #1C1C21;
+}
+
+.linkWrapper {
+
+  display: flex;
+  gap: var(--x2);
+}
+
+.leftMenu {
+  box-sizing: content-box;
+  display: flex;
+  justify-self: start;
+}
+
+
+
+.rightMenu {
+  justify-self: end;
+}

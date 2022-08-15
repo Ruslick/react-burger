@@ -1,0 +1,15 @@
+.section {
+  list-style: none;
+  margin-bottom: var(--x10);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--x8) var(--x6);
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+}

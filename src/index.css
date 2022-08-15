@@ -11,3 +11,59 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container {
+  margin: 0 auto;
+  max-width: 1240px;
+}
+
+.active {
+  color: var(--primary);
+}
+
+:root {
+
+  --x1: 4px;
+  --x2: calc(var(--x1) * 2);
+  --x4: calc(var(--x1) * 4);
+  --x5: calc(var(--x1) * 5);
+  --x6: calc(var(--x1) * 6);
+  --x8: calc(var(--x1) * 8);
+  --x10: calc(var(--x1) * 10);
+  --x15: calc(var(--x1) * 15);
+  --x25: 100px;
+}
+
+:root {
+  --primary: #F2F2F3;
+  --secondary: #8585AD;
+}
+
+
+.scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.scroll::-webkit-scrollbar {
+  background-color: #2F2F37;
+  width: 8px;
+  position: absolute;
+  right: em;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.scroll::-webkit-scrollbar-button {
+  display: none;
+}
+
+.active {
+  color: var(--primary)
+}
