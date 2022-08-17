@@ -5,11 +5,11 @@ import {
 import React from "react";
 import styles from "./OrderIngridient.module.css";
 import PropTypes from "prop-types";
-import { ingridientShape } from "../../../../utils/types";
+import { ingridientShape } from "../../../utils/types";
 
 function OrderIngridient({ ingridient, isLocked, type }) {
 	const { name, price, image } = ingridient;
-	const prefixedName =
+	const postfixName =
 		type === "top"
 			? `${name} (верх)`
 			: type === "bottom"
@@ -28,7 +28,7 @@ function OrderIngridient({ ingridient, isLocked, type }) {
 			<ConstructorElement
 				type={type}
 				isLocked={isLocked}
-				text={prefixedName}
+				text={postfixName}
 				price={price}
 				thumbnail={image}
 			/>

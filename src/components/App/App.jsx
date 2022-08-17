@@ -2,31 +2,42 @@ import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngridients from "../BurgerIngredients/BurgerIngridients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-// import data from "../../utils/data";
-import useIngredientsFetch from "../../hooks/useIngredientsFetch";
-import { URL } from "../../utils/constants";
+import ingridientsContextApi from "../../utils/ingridientsContextApi";
+import { getIngridients } from "../../utils/getIngridients";
+import { useEffect, useState } from "react";
 
 function App() {
-	const { data, error } = useIngredientsFetch(URL);
-	if (error) {
-		console.log(error);
-		return <h1>{"Произошла ошибка :("}</h1>;
-	}
-	return (
+	const [isLoading, setIsLoading] = useState(true);
+	const [data, setData] = useState(null);
+	useEffect(() => {
+		getIngridients()
+		.then(response => {
+			setData(response)
+		})
+		.catch((e) => {
+			console.warn(e)
+		})
+		.finally(() => {
+			setIsLoading(false)
+		})
+	}, []);
+	return isLoading ? (
+		<h1>{"Loading..."}</h1>
+	) : !data ? (
+		<h1>{"Упс произошла ошибка :("}</h1>
+	) : (
 		<>
 			<AppHeader />
-			<div className="container">
-				<section className={styles.wrapper}>
-					{data ? (
+			<ingridientsContextApi.Provider value={{ data }}>
+				<div className="container">
+					<section className={styles.wrapper}>
 						<>
-							<BurgerIngridients data={data} />
-							<BurgerConstructor data={data} />
+							<BurgerIngridients />
+							<BurgerConstructor />
 						</>
-					) : (
-						<div>loading...</div>
-					)}
-				</section>
-			</div>
+					</section>
+				</div>
+			</ingridientsContextApi.Provider>
 		</>
 	);
 }
