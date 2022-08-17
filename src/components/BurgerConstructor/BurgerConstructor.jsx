@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import Order from "./Order/Order";
 import OrderInfo from "./OrderInfo/OrderInfo";
-import PropTypes from "prop-types";
 import OrderDetails from "./OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
+import orderContext from "../../utils/orderContext";
+import { reducer } from "../../utils/reducerBurgerConstructor";
 
-function BurgerConstructor({ data }) {
+function BurgerConstructor() {
 	const [isOpenedModal, setIsOpenedModal] = useState(false);
 
 	const openModal = () => {
@@ -16,23 +17,27 @@ function BurgerConstructor({ data }) {
 		setIsOpenedModal(false);
 	};
 
+	const initialOrderState = {
+		orderIngridients: null,
+		totalPrice: null,
+		bun: null,
+	};
+
+	const [orderState, orderDispatch] = useReducer(reducer, initialOrderState);
+
 	return (
-		<>
+		<orderContext.Provider value={{ orderState, orderDispatch }}>
 			<div className="pr-4 pl-4">
-				<Order data={data} />
-				<OrderInfo openModal={openModal} />
+				<Order />
+				{orderState.orderIngridients && <OrderInfo openModal={openModal} />}
 			</div>
 			{isOpenedModal && (
 				<Modal isOpen={isOpenedModal} onClose={closeModal}>
 					<OrderDetails />
 				</Modal>
 			)}
-		</>
+		</orderContext.Provider>
 	);
 }
-
-BurgerConstructor.propTypes = {
-	data: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
 
 export default BurgerConstructor;

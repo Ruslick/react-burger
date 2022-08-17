@@ -1,17 +1,18 @@
-import React from "react";
-import styles from "./IngridientsList.module.css";
+import React, { useContext } from "react";
+import styles from "./IngridientsCategoria.module.css";
 import PropTypes from "prop-types";
 import Ingridient from "../Ingridient/Ingridient";
+import ingridientsContextApi from "../../../utils/ingridientsContextApi";
 
-function IngridientsList({ ingridients, type, children, openModal }) {
+function IngridientsCategoria({ type, children, openModal }) {
+	const { data } = useContext(ingridientsContextApi);
+
 	return (
 		<li className={styles.section}>
 			<p className="text text_type_main-medium">{children}</p>
 			<ul className={styles.list + " mt-6 mb-6 mr-4 ml-4"}>
-				{ingridients
-					// распределение ингридинтов по типу (булки в булках, начинки в начинках)
+				{data
 					.filter((ingridient) => (ingridient.type === type ? true : false))
-
 					.map((ingridient) => (
 						<Ingridient
 							key={ingridient._id}
@@ -25,11 +26,10 @@ function IngridientsList({ ingridients, type, children, openModal }) {
 	);
 }
 
-IngridientsList.propTypes = {
-	ingridients: PropTypes.arrayOf(PropTypes.object).isRequired,
+IngridientsCategoria.propTypes = {
 	type: PropTypes.string.isRequired,
 	children: PropTypes.string.isRequired,
 	openModal: PropTypes.func.isRequired,
 };
 
-export default IngridientsList;
+export default IngridientsCategoria;
