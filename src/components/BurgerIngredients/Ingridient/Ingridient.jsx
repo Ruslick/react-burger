@@ -29,7 +29,6 @@ function Ingridient({ ingridient, count, openModal }) {
 	);
 }
 
-// проверка типов ингридиента
 Ingridient.propTypes = {
 	ingridient: PropTypes.shape(ingridientShape).isRequired,
 	count: PropTypes.number.isRequired,

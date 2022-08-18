@@ -8,7 +8,7 @@ import IngridientsCategoria from "./IngridientsCategoria/IngridientsCategoria";
 function BurgerIngridients() {
 	const [isOpenedModal, setIsOpenedModal] = useState(false);
 	const [ingridient, setIngridient] = useState(null);
-
+	const [selectedCategoria, setSelectedCategoria] = React.useState("bun");
 	const openModal = (ingridientData) => {
 		setIngridient(ingridientData);
 		setIsOpenedModal(true);
@@ -24,15 +24,30 @@ function BurgerIngridients() {
 				<div className="mt-10 mb-5">
 					<p className="text text_type_main-large">Соберите бургер</p>
 				</div>
-				<Tabs />
-				<ul className={`${styles.list} scroll`}>
-					<IngridientsCategoria type="bun" openModal={openModal}>
+				<Tabs
+					selectedCategoria={selectedCategoria}
+					setSelectedCategoria={setSelectedCategoria}
+				/>
+				<ul className={styles.list + " scroll"}>
+					<IngridientsCategoria
+						selectedCategoria={selectedCategoria}
+						type="bun"
+						openModal={openModal}
+					>
 						Булки
 					</IngridientsCategoria>
-					<IngridientsCategoria type="sauce" openModal={openModal}>
+					<IngridientsCategoria
+						selectedCategoria={selectedCategoria}
+						type="sauce"
+						openModal={openModal}
+					>
 						Cоусы
 					</IngridientsCategoria>
-					<IngridientsCategoria type="main" openModal={openModal}>
+					<IngridientsCategoria
+						selectedCategoria={selectedCategoria}
+						type="main"
+						openModal={openModal}
+					>
 						Начинки
 					</IngridientsCategoria>
 				</ul>

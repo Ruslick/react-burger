@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const ingridientsContextApi = createContext(null);
+const IngridientsContextApi = createContext(null);
 
-export default ingridientsContextApi;
+export default IngridientsContextApi;

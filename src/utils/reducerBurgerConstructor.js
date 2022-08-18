@@ -1,4 +1,4 @@
-export const reducer = (state, action) => {
+export default function reducer(state, action) {
 	let accState = { ...state };
 
 	// Устанавливаем булку и добовляем 2 таких булки в общие ингридиенты
@@ -39,4 +39,4 @@ export const reducer = (state, action) => {
 		: 0;
 
 	return { ...accState, totalPrice };
-};
+}

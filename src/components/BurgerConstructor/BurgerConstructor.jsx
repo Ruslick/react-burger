@@ -3,8 +3,8 @@ import Order from "./Order/Order";
 import OrderInfo from "./OrderInfo/OrderInfo";
 import OrderDetails from "./OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-import orderContext from "../../utils/orderContext";
-import { reducer } from "../../utils/reducerBurgerConstructor";
+import OrderContext from "../../utils/OrderContext";
+import reducer from "../../utils/reducerBurgerConstructor";
 
 function BurgerConstructor() {
 	const [isOpenedModal, setIsOpenedModal] = useState(false);
@@ -26,7 +26,7 @@ function BurgerConstructor() {
 	const [orderState, orderDispatch] = useReducer(reducer, initialOrderState);
 
 	return (
-		<orderContext.Provider value={{ orderState, orderDispatch }}>
+		<OrderContext.Provider value={{ orderState, orderDispatch }}>
 			<div className="pr-4 pl-4">
 				<Order />
 				{orderState.orderIngridients && <OrderInfo openModal={openModal} />}
@@ -36,7 +36,7 @@ function BurgerConstructor() {
 					<OrderDetails />
 				</Modal>
 			)}
-		</orderContext.Provider>
+		</OrderContext.Provider>
 	);
 }
 

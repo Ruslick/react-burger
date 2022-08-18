@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import done from "../../../images/done.svg";
 import styles from "./OrderDetails.module.css";
-import orderContext from "../../../utils/orderContext";
-import { postOrder } from "../../../utils/postOrder";
+import OrderContext from "../../../utils/OrderContext";
+import { postOrder } from "../../../utils/requests";
 
 export default function OrderDetails() {
-	const { orderState } = useContext(orderContext);
+	const { orderState } = useContext(OrderContext);
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [data, setData] = useState(null);

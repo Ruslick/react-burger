@@ -3,12 +3,12 @@ import {
 	CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useContext } from "react";
-import styles from "./OrderInfo.module.css";
 import PropTypes from "prop-types";
-import orderContext from "../../../utils/orderContext";
+import styles from "./OrderInfo.module.css";
+import OrderContext from "../../../utils/OrderContext";
 
 function OrderInfo({ openModal }) {
-	const { orderState } = useContext(orderContext);
+	const { orderState } = useContext(OrderContext);
 	return (
 		<>
 			<section className={styles.orderInfo + " mt-10"}>
