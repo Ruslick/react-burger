@@ -1,64 +1,55 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Tabs from "../ui/Tabs/Tabs";
 import styles from "./BurgerIngridients.module.css";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "./IngredientDetails/IngredientDetails";
 import IngridientsCategoria from "./IngridientsCategoria/IngridientsCategoria";
 
+import { useDispatch, useSelector } from "react-redux";
+import { removeCurrentIngridient } from "../../services/slices/currentIngridientSlice";
 function BurgerIngridients() {
-	const [isOpenedModal, setIsOpenedModal] = useState(false);
-	const [ingridient, setIngridient] = useState(null);
-	const [selectedCategoria, setSelectedCategoria] = React.useState("bun");
-	const openModal = (ingridientData) => {
-		setIngridient(ingridientData);
-		setIsOpenedModal(true);
-	};
+	const dispatch = useDispatch();
 
-	const closeModal = () => {
-		setIsOpenedModal(false);
-	};
+	const currentIngridient = useSelector(
+		(state) => state.currentIngridientSlice.currentIngridient
+	);
+	const ingridientsCategorias = useSelector(
+		(state) => state.categoriaSlice.ingridientsCategorias
+	);
+	const ref = useRef();
 
+	const [scrollPosition, setScrollPosition] = useState(0);
 	return (
 		<>
 			<section>
 				<div className="mt-10 mb-5">
 					<p className="text text_type_main-large">Соберите бургер</p>
 				</div>
-				<Tabs
-					selectedCategoria={selectedCategoria}
-					setSelectedCategoria={setSelectedCategoria}
-				/>
-				<ul className={styles.list + " scroll"}>
-					<IngridientsCategoria
-						selectedCategoria={selectedCategoria}
-						type="bun"
-						openModal={openModal}
-					>
-						Булки
-					</IngridientsCategoria>
-					<IngridientsCategoria
-						selectedCategoria={selectedCategoria}
-						type="sauce"
-						openModal={openModal}
-					>
-						Cоусы
-					</IngridientsCategoria>
-					<IngridientsCategoria
-						selectedCategoria={selectedCategoria}
-						type="main"
-						openModal={openModal}
-					>
-						Начинки
-					</IngridientsCategoria>
+				<Tabs />
+				<ul
+					className={`${styles.list} scroll`}
+					onScroll={(e) => {
+						setScrollPosition(e.target.scrollTop + e.target.offsetTop);
+					}}
+					ref={ref}
+				>
+					{ingridientsCategorias.map((c) => (
+						<IngridientsCategoria
+							key={c.type}
+							type={c.type}
+							scrollPosition={scrollPosition}
+						>
+							{c.name}
+						</IngridientsCategoria>
+					))}
 				</ul>
 			</section>
-			{isOpenedModal && (
+			{!!currentIngridient && (
 				<Modal
-					isOpen={isOpenedModal}
-					onClose={closeModal}
+					onClose={() => dispatch(removeCurrentIngridient())}
 					title="Детали ингридиента"
 				>
-					<IngredientDetails ingridient={ingridient} />
+					<IngredientDetails ingridient={currentIngridient} />
 				</Modal>
 			)}
 		</>

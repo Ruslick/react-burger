@@ -4,6 +4,10 @@
   align-items: center;
   justify-content: center;
   justify-items: center;
+  cursor: grab;
+}
+.constructorElement:active {
+  cursor: grabbing;
 }
 
 .iconWrapper {

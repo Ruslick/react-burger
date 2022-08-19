@@ -43,6 +43,7 @@ code {
 .scroll {
   overflow-y: scroll;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .scroll::-webkit-scrollbar {

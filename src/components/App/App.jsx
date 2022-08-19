@@ -1,42 +1,58 @@
+/////////////
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import styles from "./App.module.css";
+
+import { getIngridientsFetch } from "../../utils/getIngridientsRequest";
+
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngridients from "../BurgerIngredients/BurgerIngridients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import IngridientsContextApi from "../../utils/IngridientsContextApi";
-import { getIngridients } from "../../utils/requests";
-import { useEffect, useState } from "react";
 
 function App() {
-	const [isLoading, setIsLoading] = useState(true);
-	const [data, setData] = useState(null);
+	const dispatch = useDispatch();
+
+	const { status, error } = useSelector((state) => state.ingridientsSlice);
+
 	useEffect(() => {
-		getIngridients()
-			.then((response) => {
-				setData(response);
-			})
-			.catch((e) => {
-				console.warn(e);
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
-	}, []);
-	return isLoading ? (
-		<h1>{"Loading..."}</h1>
-	) : !data ? (
-		<h1>{"Упс произошла ошибка :("}</h1>
-	) : (
-		<IngridientsContextApi.Provider value={{ data }}>
-			<AppHeader />
-			<div className="container">
-				<section className={styles.wrapper}>
-					<>
+		dispatch(getIngridientsFetch());
+	}, [dispatch]);
+
+	const content = useMemo(() => {
+		if (status === "loading") {
+			return <p className="text text_type_main-large mt-10">{"Загрузка..."}</p>;
+		}
+		if (status === "failed") {
+			console.warn(error);
+			return (
+				<p className="text text_type_main-large mt-10">
+					{"Упс произошла ошибка :("}
+				</p>
+			);
+		}
+
+		if (status === "received") {
+			return (
+				<>
+					<DndProvider backend={HTML5Backend}>
 						<BurgerIngridients />
 						<BurgerConstructor />
-					</>
-				</section>
+					</DndProvider>
+				</>
+			);
+		}
+	}, [error, status]);
+
+	return (
+		<>
+			<AppHeader />
+			<div className="container">
+				<section className={styles.wrapper}>{content}</section>
 			</div>
-		</IngridientsContextApi.Provider>
+		</>
 	);
 }
 

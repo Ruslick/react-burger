@@ -1,42 +1,31 @@
-import React, { useReducer, useState } from "react";
+import React from "react";
 import Order from "./Order/Order";
 import OrderInfo from "./OrderInfo/OrderInfo";
 import OrderDetails from "./OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-import OrderContext from "../../utils/OrderContext";
-import reducer from "../../utils/reducerBurgerConstructor";
+import { useDispatch, useSelector } from "react-redux";
+import { closeModal } from "../../services/slices/orderSlice";
 
 function BurgerConstructor() {
-	const [isOpenedModal, setIsOpenedModal] = useState(false);
-
-	const openModal = () => {
-		setIsOpenedModal(true);
-	};
-
-	const closeModal = () => {
-		setIsOpenedModal(false);
-	};
-
-	const initialOrderState = {
-		orderIngridients: null,
-		totalPrice: null,
-		bun: null,
-	};
-
-	const [orderState, orderDispatch] = useReducer(reducer, initialOrderState);
+	const dispatch = useDispatch();
+	const isOpenedModal = useSelector((state) => state.orderSlice.isOpenedModal);
+	const ingridientsCount = useSelector(
+		(state) => state.orderSlice.orderIngridients.length + 1
+	);
+	const closeHandle = () => dispatch(closeModal());
 
 	return (
-		<OrderContext.Provider value={{ orderState, orderDispatch }}>
+		<>
 			<div className="pr-4 pl-4">
 				<Order />
-				{orderState.orderIngridients && <OrderInfo openModal={openModal} />}
+				{ingridientsCount > 3 && <OrderInfo />}
 			</div>
 			{isOpenedModal && (
-				<Modal isOpen={isOpenedModal} onClose={closeModal}>
+				<Modal onClose={closeHandle}>
 					<OrderDetails />
 				</Modal>
 			)}
-		</OrderContext.Provider>
+		</>
 	);
 }
 

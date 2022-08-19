@@ -1,42 +1,41 @@
-import React, { useContext, useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, } from "react";
 import styles from "./IngridientsCategoria.module.css";
 import PropTypes from "prop-types";
 import Ingridient from "../Ingridient/Ingridient";
-import IngridientsContextApi from "../../../utils/IngridientsContextApi";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTab } from "../../../services/slices/categoriaSlice";
 
-function IngridientsCategoria({
-	selectedCategoria,
-	type,
-	children,
-	openModal,
-}) {
-	const { data } = useContext(IngridientsContextApi);
+function IngridientsCategoria({ type, children, scrollPosition }) {
+	const dispatch = useDispatch();
+	const ingridients = useSelector(
+		(state) => state.ingridientsSlice.ingridients
+	);
+
+	const currentElementRef = useRef();
+	useEffect(() => {
+		const topPosition = currentElementRef.current.offsetTop;
+		const bottomPosition =
+			currentElementRef.current.offsetTop +
+			currentElementRef.current.offsetHeight;
+		if (topPosition <= scrollPosition && scrollPosition <= bottomPosition) {
+			dispatch(selectTab(type));
+		}
+	}, [dispatch, scrollPosition, type]);
+
 	const ingridientsByType = useMemo(() => {
 		return (
-			data &&
-			data
-				.filter((ingridient) => (ingridient.type === type ? true : false))
+			ingridients &&
+			ingridients
+				.filter((ingridient) => ingridient.type === type)
 				.map((ingridient) => (
-					<Ingridient
-						key={ingridient._id}
-						ingridient={ingridient}
-						count={1}
-						openModal={openModal}
-					/>
+					<Ingridient key={ingridient._id} ingridient={ingridient} />
 				))
 		);
-	}, [data, type, openModal]);
-
-	const categoriaRef = useRef(null);
-	useEffect(() => {
-		if (selectedCategoria === type) {
-			categoriaRef.current.scrollIntoView({ behavior: "smooth" });
-		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedCategoria]);
+	}, [ingridients]);
 
 	return (
-		<li ref={categoriaRef} className={styles.section}>
+		<li className={styles.section} id={type} ref={currentElementRef}>
 			<p className="text text_type_main-medium">{children}</p>
 			<ul className={styles.list + " mt-6 mb-6 mr-4 ml-4"}>
 				{ingridientsByType}
@@ -48,8 +47,6 @@ function IngridientsCategoria({
 IngridientsCategoria.propTypes = {
 	type: PropTypes.string.isRequired,
 	children: PropTypes.string.isRequired,
-	openModal: PropTypes.func.isRequired,
-	selectedCategoria: PropTypes.string.isRequired,
 };
 
 export default IngridientsCategoria;

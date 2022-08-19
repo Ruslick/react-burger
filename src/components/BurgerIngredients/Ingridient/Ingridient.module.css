@@ -10,7 +10,7 @@
   gap: var(--x1);
 
   text-align: center;
-  /* background-color: tomato; */
+  cursor: pointer;
 }
 
 .counter {
@@ -24,4 +24,3 @@
   align-items: center;
 
 }
-

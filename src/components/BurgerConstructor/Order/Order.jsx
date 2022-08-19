@@ -1,58 +1,94 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+
 import styles from "./Order.module.css";
-import IngridientsContextApi from "../../../utils/IngridientsContextApi";
-import OrderContext from "../../../utils/OrderContext";
+
 import OrderIngridient from "../OrderIngridient/OrderIngridient";
 
+import {
+	addOrderIngridient,
+	switchBun,
+	updateOrderIngridients,
+} from "../../../services/slices/orderSlice";
+
 function Order() {
-	const { data } = useContext(IngridientsContextApi);
-	const testData = useMemo(() => {
-		return data.filter((ingridient) => {
-			if (ingridient.type === "bun") return false;
-			return true;
-		});
-	}, [data]);
-	const { orderState, orderDispatch } = useContext(OrderContext);
-	useEffect(
-		() => {
-			orderDispatch({ setOrderIngridients: testData, setBun: data[0] });
+	const dispatch = useDispatch();
+	const { currentBun, orderIngridients } = useSelector(
+		(state) => state.orderSlice
+	);
+	const [, ingridientDropTarget] = useDrop({
+		accept: "ingridient",
+		drop(item) {
+			item.type === "bun"
+				? dispatch(switchBun(item))
+				: dispatch(addOrderIngridient(item));
 		},
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[]
+	});
+
+	const moveCard = useCallback(
+		(dragIndex, hoverIndex) => {
+			const dragIngridient = orderIngridients[dragIndex];
+			const newOrderIngridients = [...orderIngridients];
+
+			newOrderIngridients.splice(dragIndex, 1);
+			newOrderIngridients.splice(hoverIndex, 0, dragIngridient);
+
+			dispatch(updateOrderIngridients({ newOrderIngridients }));
+		},
+		[orderIngridients, dispatch]
 	);
 
-	const ingridients = useMemo(() => {
-		return (
-			orderState.orderIngridients &&
-			orderState.orderIngridients
-				.filter((ingridient) => {
-					if (ingridient.type === "bun") return false;
-					return true;
-				})
-				.map((ingridient, index) => {
-					return <OrderIngridient ingridient={ingridient} key={index} />;
-				})
-		);
-	}, [orderState.orderIngridients]);
+	const mappedIngridients = useMemo(() => {
+		return orderIngridients
+			.map((ingridient, index) => (
+				<OrderIngridient
+					ingridient={ingridient}
+					key={ingridient._number}
+					index={index}
+					moveCard={moveCard}
+				/>
+			))
+			.filter((i) => i.props.ingridient.type !== "bun");
+	}, [moveCard, orderIngridients]);
 
-	return !orderState.orderIngridients ? (
-		<div>выберите булку...</div>
-	) : (
+	return (
 		<section
 			className={styles.wrapper + " mt-25"}
 			style={{ height: window.innerHeight / 2 }}
+			ref={ingridientDropTarget}
 		>
-			<OrderIngridient
-				ingridient={orderState.bun}
-				type={"top"}
-				isLocked={true}
-			/>
-			<div className={styles.list + " scroll"}>{ingridients}</div>
-			<OrderIngridient
-				ingridient={orderState.bun}
-				type={"bottom"}
-				isLocked={true}
-			/>
+			{!orderIngridients.length ? (
+				<p className={`${styles.placeholder} text text_type_main-large`}>
+					Выберите булку...
+				</p>
+			) : (
+				<>
+					<OrderIngridient
+						ingridient={currentBun}
+						type={"top"}
+						isLocked={true}
+						moveCard={moveCard}
+					/>
+					<div className={styles.list + " scroll"}>
+						{!mappedIngridients.length ? (
+							<p
+								className={`${styles.placeholder} text text_type_main-large mt-10 mb-10`}
+							>
+								Выберите ингридиент...
+							</p>
+						) : (
+							<>{mappedIngridients}</>
+						)}
+					</div>
+					<OrderIngridient
+						ingridient={currentBun}
+						type={"bottom"}
+						isLocked={true}
+						moveCard={moveCard}
+					/>
+				</>
+			)}
 		</section>
 	);
 }
