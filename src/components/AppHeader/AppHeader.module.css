@@ -23,10 +23,31 @@
   box-sizing: content-box;
   display: flex;
   justify-self: start;
+  gap: var(--x2);
 }
 
 
 
 .rightMenu {
   justify-self: end;
+}
+
+.link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: var(--x2);
+}
+.activeLink{
+  composes: link;
+}
+
+.link svg {
+  fill: var(--text-primary-color);
+}
+
+.activeLink svg {
+  fill: var(--text-inactive-color);
 }

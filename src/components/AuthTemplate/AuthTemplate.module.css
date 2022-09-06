@@ -1,0 +1,29 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  margin-top: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.inputsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--x6);
+}
+
+.actionsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--x4);
+}

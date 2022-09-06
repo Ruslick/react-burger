@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./OrderDetails.module.css";
 
-import { postOrderFetch } from "../../../utils/postOrderRequest";
 
 import done from "../../../images/done.svg";
+import { postOrderFetch } from "../../../utils/requests";
 
 export default function OrderDetails() {
 	const dispatch = useDispatch();
