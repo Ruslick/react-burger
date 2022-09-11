@@ -3,7 +3,7 @@ import {
 	postLoginFetch,
 	postLogoutFetch,
 	postRegisterFetch,
-} from "../utils/requests";
+} from "../services/requests";
 
 function useAuth() {
 	const dispatch = useDispatch();

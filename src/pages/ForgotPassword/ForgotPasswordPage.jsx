@@ -7,7 +7,7 @@ import {
 import AdditionalAction from "../../components/ui/AdditionalAction/AdditionalAction";
 import AuthTemplate from "../../components/AuthTemplate/AuthTemplate";
 import { useDispatch, useSelector } from "react-redux";
-import { postPasswordForgotFetch } from "../../utils/requests";
+import { postPasswordForgotFetch } from "../../services/requests";
 import { useFormik } from "formik";
 import { ForgotPasswordSchema } from "../../utils/validateSchemas";
 import NavigateWithState from "../../components/hocs/NavigateWithState/NavigateWithState";

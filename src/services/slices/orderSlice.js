@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v1 as getRandomId } from "uuid";
-import { postOrderFetch } from "../../utils/requests";
+import { postOrderFetch } from "../requests";
 
 const calcTotalPrice = (ingridients) =>
 	ingridients.reduce((prev, cur) => (prev += cur.price), 0);

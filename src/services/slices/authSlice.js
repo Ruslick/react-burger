@@ -8,7 +8,7 @@ import {
 	postPasswordResetFetch,
 	postRegisterFetch,
 	updateUserData,
-} from "../../utils/requests";
+} from "../../services/requests";
 
 const initialState = {
 	resetPasswordStatus: "idle",

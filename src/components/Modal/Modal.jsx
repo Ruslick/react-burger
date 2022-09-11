@@ -4,16 +4,11 @@ import ModalOverlay from "./ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import CloseButton from "../ui/CloseButton/CloseButton";
-import { useNavigate } from "react-router-dom";
 
-function Modal({ title, children }) {
-	const navigate = useNavigate();
-	const closeHandler = () => {
-		navigate(-1);
-	};
+function Modal({ title, children, onClose }) {
 	useEffect(() => {
 		const keyHandler = (e) => {
-			if (e.key === "Escape") closeHandler();
+			if (e.key === "Escape") onClose();
 		};
 		document.addEventListener("keydown", keyHandler);
 		return () => {
@@ -23,11 +18,11 @@ function Modal({ title, children }) {
 	}, []);
 
 	return createPortal(
-		<ModalOverlay onClose={closeHandler}>
+		<ModalOverlay onClose={onClose}>
 			<div className={styles.modal}>
 				<section className={styles.modelHeader + " mt-10 mr-10 ml-10"}>
 					{title && <p className="text text_type_main-large">{title}</p>}
-					<CloseButton onClick={closeHandler}></CloseButton>
+					<CloseButton onClick={onClose}></CloseButton>
 				</section>
 				{children}
 			</div>
@@ -39,6 +34,7 @@ function Modal({ title, children }) {
 Modal.propTypes = {
 	children: PropTypes.element.isRequired,
 	title: PropTypes.string,
+	onClose: PropTypes.func,
 };
 
 export default Modal;

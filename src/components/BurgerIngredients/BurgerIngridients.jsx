@@ -12,31 +12,29 @@ function BurgerIngridients() {
 
 	const [scrollPosition, setScrollPosition] = useState(0);
 	return (
-		<>
-			<section>
-				<div className={`${styles.title} mt-10 mb-5`}>
-					<p className="text text_type_main-large">Соберите бургер</p>
-				</div>
-				<Tabs />
-				<ul
-					className={`${styles.list} scroll`}
-					onScroll={(e) => {
-						setScrollPosition(e.target.scrollTop + e.target.offsetTop);
-					}}
-					ref={ref}
-				>
-					{ingridientsCategorias.map((c) => (
-						<IngridientsCategoria
-							key={c.type}
-							type={c.type}
-							scrollPosition={scrollPosition}
-						>
-							{c.name}
-						</IngridientsCategoria>
-					))}
-				</ul>
-			</section>
-		</>
+		<section>
+			<div className={`${styles.title} mt-10 mb-5`}>
+				<p className="text text_type_main-large">Соберите бургер</p>
+			</div>
+			<Tabs />
+			<ul
+				className={`${styles.list} scroll`}
+				onScroll={(e) => {
+					setScrollPosition(e.target.scrollTop + e.target.offsetTop);
+				}}
+				ref={ref}
+			>
+				{ingridientsCategorias.map((c) => (
+					<IngridientsCategoria
+						key={c.type}
+						type={c.type}
+						scrollPosition={scrollPosition}
+					>
+						{c.name}
+					</IngridientsCategoria>
+				))}
+			</ul>
+		</section>
 	);
 }
 

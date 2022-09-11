@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateUserData } from "../../utils/requests";
+import { updateUserData } from "../../services/requests";
 import { RegisterSchema } from "../../utils/validateSchemas";
 import PasswordInput from "../ui/PasswordInput/PasswordInput";
 import style from "./ProfileForm.module.css";

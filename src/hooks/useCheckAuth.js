@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersFetch } from "../utils/requests";
+import { getUsersFetch } from "../services/requests";
 
 function useCheckAuth() {
 	const dispatch = useDispatch();

@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import {
 	ConstructorPage,
 	LoginPage,
@@ -14,10 +14,24 @@ import Layout from "../Layout/Layout";
 import ProtectedRoute from "../hocs/ProtectedRoute/ProtectedRoute";
 import IngredientDetails from "../BurgerIngredients/IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
+import { useDispatch } from "react-redux";
+import { getIngridientsFetch } from "../../services/requests";
 
 function App() {
 	const location = useLocation();
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getIngridientsFetch());
+	}, [dispatch]);
+
 	const background = location.state?.from;
+
+	const closeModalHandler = () => {
+		navigate(-1);
+	};
+
 	return (
 		<>
 			<Routes>
@@ -27,8 +41,8 @@ function App() {
 							<Route
 								path="order-details"
 								element={
-									<ProtectedRoute redirectTo="/login">
-										<Modal>
+									<ProtectedRoute>
+										<Modal onClose={closeModalHandler}>
 											<OrderDetails />
 										</Modal>
 									</ProtectedRoute>
@@ -40,7 +54,7 @@ function App() {
 							<Route
 								path="ingridient/:id"
 								element={
-									<Modal title="Детали ингредиента">
+									<Modal title="Детали ингредиента" onClose={closeModalHandler}>
 										<IngredientDetails />
 									</Modal>
 								}
@@ -53,7 +67,7 @@ function App() {
 					<Route
 						path="register"
 						element={
-							<ProtectedRoute redirectTo={"/"} mustAuth={false}>
+							<ProtectedRoute mustAuth={false}>
 								<RegisterPage />
 							</ProtectedRoute>
 						}
@@ -61,7 +75,7 @@ function App() {
 					<Route
 						path="forgot-password"
 						element={
-							<ProtectedRoute redirectTo={"/"} mustAuth={false}>
+							<ProtectedRoute mustAuth={false}>
 								<ForgotPasswordPage />
 							</ProtectedRoute>
 						}
@@ -69,7 +83,7 @@ function App() {
 					<Route
 						path="reset-password"
 						element={
-							<ProtectedRoute redirectTo={"/"} mustAuth={false}>
+							<ProtectedRoute mustAuth={false}>
 								<ResetPasswordPage />
 							</ProtectedRoute>
 						}
@@ -77,7 +91,7 @@ function App() {
 					<Route
 						path="profile"
 						element={
-							<ProtectedRoute redirectTo={"/login"}>
+							<ProtectedRoute>
 								<ProfilePage />
 							</ProtectedRoute>
 						}
@@ -85,7 +99,7 @@ function App() {
 					<Route
 						path="profile/orders"
 						element={
-							<ProtectedRoute redirectTo={"/login"}>
+							<ProtectedRoute>
 								<OrderHistory />
 							</ProtectedRoute>
 						}
@@ -93,7 +107,7 @@ function App() {
 					<Route
 						path="/login"
 						element={
-							<ProtectedRoute redirectTo={"/"} mustAuth={false}>
+							<ProtectedRoute mustAuth={false}>
 								<LoginPage />
 							</ProtectedRoute>
 						}

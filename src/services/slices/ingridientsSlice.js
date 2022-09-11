@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getIngridientsFetch } from "../../utils/requests";
+import { getIngridientsFetch } from "../requests";
 
 export const ingridientsSlice = createSlice({
 	name: "ingridients",

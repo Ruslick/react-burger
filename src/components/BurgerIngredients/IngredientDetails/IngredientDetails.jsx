@@ -1,12 +1,10 @@
 import React, { useMemo } from "react";
 import styles from "./IngredientDetails.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Loading from "../../statuses/Loading/Loading";
-import { getIngridientsFetch } from "../../../utils/requests";
 
 function IngredientDetails() {
-	const dispatch = useDispatch();
 	const { id } = useParams();
 	const { ingridients, status } = useSelector(
 		(store) => store.ingridientsSlice
@@ -18,7 +16,6 @@ function IngredientDetails() {
 	);
 
 	if (status === "idle") {
-		dispatch(getIngridientsFetch());
 		return null;
 	}
 	if (status === "loading") {

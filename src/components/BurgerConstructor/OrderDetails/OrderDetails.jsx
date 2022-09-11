@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./OrderDetails.module.css";
 
 import done from "../../../images/done.svg";
-import { postOrderFetch } from "../../../utils/requests";
 import { Navigate } from "react-router-dom";
 import { resetOrder } from "../../../services/slices/orderSlice";
 import Loading from "../../statuses/Loading/Loading";
+import { postOrderFetch } from "../../../services/requests";
 
 export default function OrderDetails() {
 	const dispatch = useDispatch();

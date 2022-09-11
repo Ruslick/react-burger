@@ -9,15 +9,15 @@ import {
 	REGISTER_URL,
 	UPDATE_TOKEN_URL,
 	LOGUOT_URL,
-} from "./constants";
-import { getCookie, saveTokens } from "./cookiesTransform";
+} from "../utils/constants";
+import { getCookie, saveTokens } from "../utils/cookiesTransform";
 import {
 	getOption,
 	getOptionWithAuthToken,
 	patchOptionWithAuthToken,
 	postOption,
 	postOptionWithAuthToken,
-} from "./fetchOptions";
+} from "../utils/fetchOptions";
 
 const getTokens = () => {
 	const token = getCookie("refreshToken");
