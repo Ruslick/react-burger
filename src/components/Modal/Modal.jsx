@@ -5,18 +5,17 @@ import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import CloseButton from "../ui/CloseButton/CloseButton";
 
-function Modal({ isOpen, title, children, onClose }) {
+function Modal({ title, children, onClose }) {
 	useEffect(() => {
 		const keyHandler = (e) => {
 			if (e.key === "Escape") onClose();
 		};
-		if (isOpen) {
-			document.addEventListener("keydown", keyHandler);
-			return () => {
-				document.removeEventListener("keydown", keyHandler);
-			};
-		}
-	}, [isOpen, onClose]);
+		document.addEventListener("keydown", keyHandler);
+		return () => {
+			document.removeEventListener("keydown", keyHandler);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return createPortal(
 		<ModalOverlay onClose={onClose}>
@@ -36,7 +35,6 @@ Modal.propTypes = {
 	children: PropTypes.element.isRequired,
 	onClose: PropTypes.func.isRequired,
 	title: PropTypes.string,
-	isOpen: PropTypes.bool.isRequired,
 };
 
 export default Modal;

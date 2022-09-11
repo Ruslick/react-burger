@@ -1,31 +1,56 @@
+/////////////
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import styles from "./App.module.css";
+
+import { getIngridientsFetch } from "../../utils/getIngridientsRequest";
+
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngridients from "../BurgerIngredients/BurgerIngridients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-// import data from "../../utils/data";
-import useIngredientsFetch from "../../hooks/useIngredientsFetch";
-import { URL } from "../../utils/constants";
 
 function App() {
-	const { data, error } = useIngredientsFetch(URL);
-	if (error) {
-		console.log(error);
-		return <h1>{"Произошла ошибка :("}</h1>;
-	}
+	const dispatch = useDispatch();
+
+	const { status, error } = useSelector((state) => state.ingridientsSlice);
+
+	useEffect(() => {
+		dispatch(getIngridientsFetch());
+	}, [dispatch]);
+
+	const content = useMemo(() => {
+		if (status === "loading") {
+			return <p className="text text_type_main-large mt-10">{"Загрузка..."}</p>;
+		}
+		if (status === "failed") {
+			console.warn(error);
+			return (
+				<p className="text text_type_main-large mt-10">
+					{"Упс произошла ошибка :("}
+				</p>
+			);
+		}
+
+		if (status === "received") {
+			return (
+				<>
+					<DndProvider backend={HTML5Backend}>
+						<BurgerIngridients />
+						<BurgerConstructor />
+					</DndProvider>
+				</>
+			);
+		}
+	}, [error, status]);
+
 	return (
 		<>
 			<AppHeader />
 			<div className="container">
-				<section className={styles.wrapper}>
-					{data ? (
-						<>
-							<BurgerIngridients data={data} />
-							<BurgerConstructor data={data} />
-						</>
-					) : (
-						<div>loading...</div>
-					)}
-				</section>
+				<section className={styles.wrapper}>{content}</section>
 			</div>
 		</>
 	);

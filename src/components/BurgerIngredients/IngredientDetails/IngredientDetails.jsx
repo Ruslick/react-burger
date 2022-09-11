@@ -6,7 +6,7 @@ import { ingridientShape } from "../../../utils/types";
 function IngredientDetails({ ingridient }) {
 	const { name, image_large, calories, carbohydrates, fat, proteins } =
 		ingridient;
-
+		
 	return (
 		<div className={styles.wrapper}>
 			<img src={image_large} alt={name} />

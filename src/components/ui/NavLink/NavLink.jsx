@@ -21,7 +21,7 @@ function NavLink({ children, icon, active }) {
 NavLink.propTypes = {
 	children: PropTypes.string.isRequired,
 	icon: PropTypes.func.isRequired,
-	// active: PropTypes.bolean,
+	active: PropTypes.bool,
 };
 
 export default NavLink;
