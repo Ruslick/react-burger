@@ -11,15 +11,15 @@ import styles from "./AppHeader.module.css";
 function AppHeader() {
 	const classNameHandle = ({ isActive }) => {
 		let color = `${
-			isActive ? `${styles.link} text_color_primary` : `${styles.activeLink} text_color_inactive`
-		}`
+			isActive
+				? `${styles.link} text_color_primary`
+				: `${styles.activeLink} text_color_inactive`
+		}`;
 		return `${color} ${styles.link} text text_type_main-small p-5`;
 	};
 
-
-
 	return (
-		<header className={styles.wrapper + " mt-10 mr-10 ml-10"}>
+		<header className={styles.wrapper + " mt-10 mr-10 ml-10 mb-25"}>
 			<div className="container">
 				<section className={styles.header + " pt-4 pb-4"}>
 					<div className={styles.leftMenu}>

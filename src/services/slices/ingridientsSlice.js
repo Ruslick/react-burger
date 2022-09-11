@@ -4,7 +4,7 @@ import { getIngridientsFetch } from "../../utils/requests";
 export const ingridientsSlice = createSlice({
 	name: "ingridients",
 	initialState: {
-		status: "notRequested",
+		status: "idle",
 		error: null,
 		ingridients: [],
 	},

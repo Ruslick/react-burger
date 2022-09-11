@@ -1,48 +1,63 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+	USER_DATA_URL,
 	INGRIDIENTS_URL,
 	LOGIN_URL,
 	ORDERS_URL,
 	PASSWORD_FORGOT_URL,
 	PASSWORD_RESET_URL,
 	REGISTER_URL,
+	UPDATE_TOKEN_URL,
+	LOGUOT_URL,
 } from "./constants";
+import { getCookie, saveTokens } from "./cookiesTransform";
+import {
+	getOption,
+	getOptionWithAuthToken,
+	patchOptionWithAuthToken,
+	postOption,
+	postOptionWithAuthToken,
+} from "./fetchOptions";
 
-const error = new Error("Fetch error");
-
-// корневой запрос от которого нужно наследоваться
-export default function requestToUrl(url, options) {
-	return fetch(url, options)
-		.then((res) => {
-			if (res.ok) {
-				return res.json();
-			}
-			throw error;
-		})
-		.then((responseData) => {
-			if (responseData.success) {
-				return responseData;
-			}
-			throw error;
-		});
-}
-
-const authOptions = (formData) => {
-	const jsonBody = JSON.stringify(formData);
-	return {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json;charset=utf-8",
-		},
-		body: jsonBody,
-	};
+const getTokens = () => {
+	const token = getCookie("refreshToken");
+	if (!token) throw new Error(`Update token error : ${token}`);
+	return requestToUrl(UPDATE_TOKEN_URL, postOption({ token }));
 };
+// корневой запрос от которого нужно наследоваться
+function requestToUrl(url, options) {
+	try {
+		return fetch(url, options())
+			.then(async (res) => {
+				if (!res.ok || res.status === 403) {
+					const responseData = await res.json();
+					if (responseData.message === "jwt expired") {
+						await getTokens();
+						return await fetch(url, options());
+					} else {
+						throw new Error(responseData?.message);
+					}
+				}
+				return res;
+			})
+			.then((res) => res.json())
+			.then((responseData) => {
+				if (responseData.success) {
+					saveTokens(responseData);
+					return responseData;
+				}
+				return Promise.reject(responseData);
+			});
+	} catch (e) {
+		console.warn(e);
+	}
+}
 
 // запрос всех ингридиентов с сервера
 export const getIngridientsFetch = createAsyncThunk(
 	"ingridients/getIngridientsFetch",
 	async () => {
-		return await requestToUrl(INGRIDIENTS_URL).then(
+		return await requestToUrl(INGRIDIENTS_URL, getOption()).then(
 			(requestData) => requestData.data
 		);
 	}
@@ -52,56 +67,64 @@ export const getIngridientsFetch = createAsyncThunk(
 export const postOrderFetch = createAsyncThunk(
 	"ingridients/postOrderFetch",
 	async (_, { getState }) => {
-		const orderIds = JSON.stringify({
+		const data = {
 			ingredients: getState().orderSlice.orderIngridients.map(
 				(ingridient) => ingridient._id
 			),
-		});
-
-		const options = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json;charset=utf-8",
-			},
-			body: orderIds,
 		};
-
-		return await requestToUrl(ORDERS_URL, options);
+		return await requestToUrl(ORDERS_URL, postOptionWithAuthToken(data));
 	}
 );
 
 export const postPasswordForgotFetch = createAsyncThunk(
-	"auth/forgotPasswordFetch",
+	"auth/postPasswordForgotFetch",
 	async (formData) => {
-		return await requestToUrl(PASSWORD_FORGOT_URL, authOptions(formData));
+		return await requestToUrl(PASSWORD_FORGOT_URL, postOption(formData));
 	}
 );
 
 export const postPasswordResetFetch = createAsyncThunk(
-	"auth/resetPasswordFetch",
+	"auth/postPasswordResetFetch",
 	async (formData) => {
-		return await requestToUrl(PASSWORD_FORGOT_URL, authOptions(formData));
+		return await requestToUrl(PASSWORD_RESET_URL, postOption(formData));
 	}
 );
 
 export const postRegisterFetch = createAsyncThunk(
-	"auth/registerFetch",
+	"auth/postRegisterFetch",
 	async (formData) => {
-		return await requestToUrl(REGISTER_URL, authOptions(formData));
+		return await requestToUrl(REGISTER_URL, postOption(formData));
 	}
 );
 
 export const postLoginFetch = createAsyncThunk(
-	"auth/loginFetch",
+	"auth/postLoginFetch",
 	async (formData) => {
-		return await requestToUrl(LOGIN_URL, authOptions(formData));
+		return await requestToUrl(LOGIN_URL, postOption(formData));
+	}
+);
+export const postLogoutFetch = createAsyncThunk(
+	"auth/postLogoutFetch",
+	async () => {
+		const token = getCookie("refreshToken");
+		if (!token) throw new Error(`Update token error : ${token}`);
+		return requestToUrl(LOGUOT_URL, postOption({ token }));
 	}
 );
 
-export const changeUserData = createAsyncThunk(
-	"auth/changeUserData",
-	async (formData) => {
-		// return await requestToUrl(LOGIN_URL, authOptions(formData));
+export const getUsersFetch = createAsyncThunk(
+	"auth/getUsersFetch",
+	async () => {
+		return requestToUrl(USER_DATA_URL, getOptionWithAuthToken());
 	}
 );
 
+export const updateUserData = createAsyncThunk(
+	"auth/updateUserData",
+	async (formData) => {
+		return await requestToUrl(
+			USER_DATA_URL,
+			patchOptionWithAuthToken(formData)
+		);
+	}
+);

@@ -1,15 +1,13 @@
-import { string, object} from "yup";
+import { string, object } from "yup";
 
 const email = string()
 	.email("Некорректный e-mail")
 	.required("Поле обязательно к заполнению");
-const password = string()
-	.min(6, "Минимум 6 символов")
-	.required("Поле обязательно к заполнению");
+const password = string();
 
 const token = string()
-	.length(6, "Код состоит из 6 символов")
-	.required("Поле обязательно к заполнению");
+	.required("Поле обязательно к заполнению")
+	.length(36, "Пример : 6c768ecf-6b63-4bcf-bfe9-31061ae9f0cc");
 
 const name = string().required("Поле обязательно к заполнению");
 
@@ -28,8 +26,7 @@ export const LoginSchema = object().shape({
 });
 
 export const RegisterSchema = object().shape({
-  name,
+	name,
 	email,
 	password,
 });
-

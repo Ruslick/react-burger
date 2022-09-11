@@ -6,14 +6,18 @@ import {
 
 import AdditionalAction from "../../components/ui/AdditionalAction/AdditionalAction";
 import AuthTemplate from "../../components/AuthTemplate/AuthTemplate";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { ResetPasswordSchema } from "../../utils/validateSchemas";
 import { postPasswordResetFetch } from "../../utils/requests";
+import { Navigate, useLocation } from "react-router-dom";
+import PasswordInput from "../../components/ui/PasswordInput/PasswordInput";
 
 function ResetPasswordPage() {
 	const dispatch = useDispatch();
-
+	const reseted = useSelector(
+		(store) => store.authSlice.resetPasswordStatus === "reseted"
+	);
 	const {
 		handleChange,
 		handleSubmit,
@@ -35,10 +39,8 @@ function ResetPasswordPage() {
 	});
 
 	const inputs = [
-		<Input
+		<PasswordInput
 			key="password"
-			type="password"
-			name="password"
 			error={touched.password && !!errors.password}
 			errorText={errors.password}
 			onChange={handleChange}
@@ -67,8 +69,14 @@ function ResetPasswordPage() {
 			key="entrance"
 		/>,
 	];
+	const location = useLocation();
+	if (location?.state?.from !== "/forgot-password") {
+		return <Navigate to="/" replace />;
+	}
 
-	return (
+	return reseted ? (
+		<Navigate to="/login" replace />
+	) : (
 		<AuthTemplate
 			title="Восстановление пароля"
 			inputs={inputs}

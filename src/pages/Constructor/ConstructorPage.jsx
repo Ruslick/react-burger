@@ -8,6 +8,9 @@ import styles from "./ConstructorPage.module.css";
 import BurgerIngridients from "../../components/BurgerIngredients/BurgerIngridients";
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 import { getIngridientsFetch } from "../../utils/requests";
+import Loading from "../../components/statuses/Loading/Loading";
+import Failed from "../../components/statuses/Failed/Failed";
+import { Outlet } from "react-router-dom";
 
 function ConstructorPage() {
 	const dispatch = useDispatch();
@@ -20,15 +23,10 @@ function ConstructorPage() {
 
 	const content = useMemo(() => {
 		if (status === "loading") {
-			return <p className="text text_type_main-large mt-10">{"Загрузка..."}</p>;
+			return <Loading />;
 		}
 		if (status === "failed") {
-			console.warn(error);
-			return (
-				<p className="text text_type_main-large mt-10">
-					{"Упс произошла ошибка :("}
-				</p>
-			);
+			return <Failed />;
 		}
 
 		if (status === "received") {
@@ -38,9 +36,11 @@ function ConstructorPage() {
 						<BurgerIngridients />
 						<BurgerConstructor />
 					</DndProvider>
+					<Outlet />
 				</>
 			);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [error, status]);
 
 	return <section className={styles.wrapper}>{content}</section>;

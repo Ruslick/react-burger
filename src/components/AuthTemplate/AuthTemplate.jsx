@@ -2,6 +2,8 @@ import React from "react";
 
 import style from "./AuthTemplate.module.css";
 
+
+
 function AuthTemplate({
 	id,
 	title,

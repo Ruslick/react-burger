@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
 	Button,
 	Input,
@@ -6,59 +6,75 @@ import {
 
 import AdditionalAction from "../../components/ui/AdditionalAction/AdditionalAction";
 import AuthTemplate from "../../components/AuthTemplate/AuthTemplate";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postPasswordForgotFetch } from "../../utils/requests";
 import { useFormik } from "formik";
-import { setUserData } from "../../services/slices/authSlice";
 import { ForgotPasswordSchema } from "../../utils/validateSchemas";
+import NavigateWithState from "../../components/hocs/NavigateWithState/NavigateWithState";
 
 function ForgotPasswordPage() {
 	const dispatch = useDispatch();
+	const sended = useSelector(
+		(store) => store.authSlice.resetPasswordStatus === "sended"
+	);
 
-
-	const { handleChange, handleSubmit, handleBlur, values, isValid, dirty, errors } = useFormik({
+	const {
+		handleChange,
+		handleSubmit,
+		handleBlur,
+		values,
+		isValid,
+		dirty,
+		errors,
+	} = useFormik({
 		initialValues: {
 			email: "",
 		},
 		onSubmit(values) {
 			dispatch(postPasswordForgotFetch(values));
-			dispatch(setUserData(values))
 		},
-		validationSchema: ForgotPasswordSchema
+		validationSchema: ForgotPasswordSchema,
 	});
 
+	const inputs = useMemo(
+		() => [
+			<Input
+				key="email"
+				type="email"
+				name="email"
+				error={!!errors.email}
+				errorText={errors.email}
+				onChange={handleChange}
+				onBlur={handleBlur}
+				value={values.email}
+				placeholder="Укажите Email"
+			/>,
+		],
+		[errors.email, handleBlur, handleChange, values.email]
+	);
 
-	const inputs = [
-		<Input
-			key="email"
-			type="email"
-			name="email"
-			error={!!errors.email}
-			errorText={errors.email}
-			onChange={handleChange}
-			onBlur={handleBlur}
-			value={values.email}
-			placeholder='Укажите Email'
-		/>,
-	];
+	const additionActions = useMemo(
+		() => [
+			<AdditionalAction
+				description="Вспомнили пароль?"
+				linkText="Войти"
+				to="/login"
+				key="entrance"
+			/>,
+		],
+		[]
+	);
 
-	console.log(isValid)
-
-	return (
+	return sended ? (
+		<NavigateWithState to="/reset-password" />
+	) : (
 		<AuthTemplate
 			id="forgotPasswordForm"
 			title="Восстановление пароля"
 			onSubmit={handleSubmit}
 			inputs={inputs}
 			button={<Button disabled={!isValid || !dirty}>Восстановить</Button>}
-			additionActions={[
-				<AdditionalAction
-					description="Вспомнили пароль?"
-					linkText="Войти"
-					to="/login"
-					key="entrance"
-				/>,
-			]}
+			additionActions={additionActions}
 		/>
 	);
 }

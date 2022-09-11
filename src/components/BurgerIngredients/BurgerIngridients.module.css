@@ -2,3 +2,8 @@
   padding: 0;
   height: 50vh;
 }
+
+.title {
+  position: absolute;
+  transform: translate(0, -200%);
+}
