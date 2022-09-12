@@ -11,7 +11,6 @@ import { postOrderFetch } from "../../../services/requests";
 
 export default function OrderDetails() {
 	const dispatch = useDispatch();
-
 	useEffect(() => {
 		dispatch(postOrderFetch());
 		return () => {
@@ -21,29 +20,30 @@ export default function OrderDetails() {
 
 	const { order, status } = useSelector((state) => state.orderSlice);
 
-	if (status === "loading") {
-		return (
-			<div className={styles.content + " pt-4 pr-30 pb-30 pl-30"}>
-				<Loading />
-			</div>
-		);
-	}
 
 	if (status === "failed") {
 		return <Navigate to="/" replace />;
 	}
 
+	if (status === "received") {
+		return (
+			<div className={styles.content + " pt-4 pr-30 pb-30 pl-30"}>
+				<h1 className={styles.digits + " text text_type_digits-large"}>
+					{order.number}
+				</h1>
+				<p className="text mt-8">идентификатор заказа</p>
+				<img className={styles.done + " mt-15"} src={done} alt="done..." />
+				<p className="text mt-15">Ваш заказ начали готовить</p>
+				<p className="text text_color_inactive mt-2">
+					Дождитесь готовности на орбитальной станции
+				</p>
+			</div>
+		);
+	}
 	return (
 		<div className={styles.content + " pt-4 pr-30 pb-30 pl-30"}>
-			<h1 className={styles.digits + " text text_type_digits-large"}>
-				{order.number}
-			</h1>
-			<p className="text mt-8">идентификатор заказа</p>
-			<img className={styles.done + " mt-15"} src={done} alt="done..." />
-			<p className="text mt-15">Ваш заказ начали готовить</p>
-			<p className="text text_color_inactive mt-2">
-				Дождитесь готовности на орбитальной станции
-			</p>
+			<Loading />
 		</div>
 	);
+
 }

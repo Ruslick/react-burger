@@ -6,7 +6,7 @@ const calcTotalPrice = (ingridients) =>
 	ingridients.reduce((prev, cur) => (prev += cur.price), 0);
 
 const initialState = {
-	status: "notSended",
+	status: "idle",
 	error: null,
 	order: {},
 
@@ -79,7 +79,7 @@ export const orderSlice = createSlice({
 			state.status = "loading";
 		},
 		[postOrderFetch.fulfilled]: (state, { payload }) => {
-			state.status = "sended";
+			state.status = "received";
 			state.order = payload.order;
 			state.orderIngridients = [];
 			state.currentBun = null;

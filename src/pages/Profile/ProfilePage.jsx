@@ -16,7 +16,7 @@ function ProfilePage() {
 
 	const logoutHandler = () => {
 		Auth.logout();
-		navigate("/")
+		navigate("/");
 	};
 
 	return (

@@ -6,24 +6,28 @@ import PropTypes from "prop-types";
 import Loading from "../../statuses/Loading/Loading";
 
 function ProtectedRoute({ children, mustAuth = true }) {
-	const { user, isLoaded, checkAuth } = useCheckAuth();
+	console.log(mustAuth);
+	const { user, isLoaded, checkAuth, doResetLoaded } = useCheckAuth();
 
 	const location = useLocation();
 	const from = location.state?.from || "/";
 
 	useEffect(() => {
 		checkAuth();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		return () => {
+			doResetLoaded();
+		};
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// Если пользователь должен быть авторизованным, а он не авторизован...
-	if (mustAuth && !isLoaded && !user) {
-		return <Navigate to="/login" state={{ from: location.pathname }} />;
+	if (mustAuth && isLoaded && !user) {
+		return <Navigate to="/login" replace />;
 	}
 
 	// Если пользователь не должен быть авторизованным, а он авторизован...
 	if (!mustAuth && isLoaded && user) {
-		return <Navigate to={from} />;
+		return <Navigate to={from} replace />;
 	}
 	if (isLoaded) {
 		return children;

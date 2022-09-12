@@ -20,7 +20,13 @@ const initialState = {
 export const authSlice = createSlice({
 	name: "auth",
 	initialState,
-	reducers: {},
+	reducers: {
+		resetLoaded: {
+			reducer: (state) => {
+				state.isLoaded = false
+			}
+		}
+	},
 	extraReducers: {
 		[postLoginFetch.fulfilled]: (state, { payload }) => {
 			if (payload?.success) {
@@ -101,4 +107,4 @@ export const authSlice = createSlice({
 	},
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, resetLoaded } = authSlice.actions;
