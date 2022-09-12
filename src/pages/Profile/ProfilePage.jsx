@@ -16,9 +16,7 @@ function ProfilePage() {
 
 	const logoutHandler = () => {
 		Auth.logout();
-		if (Auth.isLoaded && !Auth.succsess) {
-			navigate("/login");
-		}
+		navigate("/")
 	};
 
 	return (

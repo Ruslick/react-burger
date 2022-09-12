@@ -16,7 +16,7 @@ function ProfileForm() {
 	const [unlockedInput, setUnlockedInput] = useState(null);
 	const userData = useSelector((store) => store.authSlice.user || {});
 
-	let initialValues = { email: "", name: "", password: "", ...userData };
+	let initialValues = { email: "", name: "", password: "" };
 
 	const {
 		handleChange,
@@ -60,7 +60,7 @@ function ProfileForm() {
 	};
 
 	useEffect(() => {
-		resetForm({ values: initialValues });
+		resetForm({ values: {...initialValues, ...userData} });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userData]);
 

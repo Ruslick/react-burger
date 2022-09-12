@@ -76,6 +76,9 @@ export const authSlice = createSlice({
 			state.resetPasswordStatus = "failed";
 			console.warn(error);
 		},
+		[getUsersFetch.pending]: (state) => {
+			state.isLoaded = false;
+		},
 		[getUsersFetch.fulfilled]: (state, { payload }) => {
 			if (payload?.success) {
 				state.user = payload.user;
