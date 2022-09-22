@@ -1,20 +1,21 @@
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { useDrag } from "react-dnd";
+
+import styles from "./Ingridient.module.css";
+import { ingridientShape } from "../../../utils/types";
+
 import {
 	Counter,
 	CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
-import PropTypes from "prop-types";
-import styles from "./Ingridient.module.css";
-
-import { ingridientShape } from "../../../utils/types";
-import { useDispatch, useSelector } from "react-redux";
-import { useDrag } from "react-dnd";
-import { setCurrentIngridient } from "../../../services/slices/currentIngridientSlice";
 
 function Ingridient({ ingridient }) {
-	const { name, image, price } = ingridient;
-
-	const dispatch = useDispatch();
+	const { name, image, price, _id } = ingridient;
+	const navigate = useNavigate();
+	const location = useLocation()
 
 	const currentBun = useSelector((state) => state.orderSlice.currentBun);
 	const canDrag = ingridient.type === "bun" || currentBun;
@@ -34,7 +35,7 @@ function Ingridient({ ingridient }) {
 			).length
 	);
 	const clinkHandle = () => {
-		dispatch(setCurrentIngridient({ ...ingridient }));
+		navigate(`/ingridient/${_id}`, {state: {from: location.pathname}});
 	};
 
 	return (

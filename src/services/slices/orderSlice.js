@@ -1,26 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v1 as getRandomId } from "uuid";
-
-import { postOrderFetch } from "../../utils/postOrderRequest";
+import { postOrderFetch } from "../requests";
 
 const calcTotalPrice = (ingridients) =>
 	ingridients.reduce((prev, cur) => (prev += cur.price), 0);
 
+const initialState = {
+	status: "idle",
+	error: null,
+	order: {},
+
+	currentBun: null,
+
+	orderIngridients: [],
+	reserveOrderIngridients: [],
+
+	totalPrice: 0,
+	isOpenedModal: false,
+};
+
 export const orderSlice = createSlice({
 	name: "order",
-	initialState: {
-		status: "notSended",
-		error: null,
-		order: {},
-
-		currentBun: null,
-
-		orderIngridients: [],
-		reserveOrderIngridients: [],
-
-		totalPrice: 0,
-		isOpenedModal: false,
-	},
+	initialState,
 	reducers: {
 		addOrderIngridient: {
 			reducer: (state, { payload }) => {
@@ -67,15 +68,9 @@ export const orderSlice = createSlice({
 				state.reserveOrderIngridients = [];
 			},
 		},
-
-		openModal: {
-			reducer: (state) => {
-				state.isOpenedModal = true;
-			},
-		},
-		closeModal: {
-			reducer: (state) => {
-				state.isOpenedModal = false;
+		resetOrder: {
+			reducer: () => {
+				return { ...initialState };
 			},
 		},
 	},
@@ -84,7 +79,7 @@ export const orderSlice = createSlice({
 			state.status = "loading";
 		},
 		[postOrderFetch.fulfilled]: (state, { payload }) => {
-			state.status = "sended";
+			state.status = "received";
 			state.order = payload.order;
 			state.orderIngridients = [];
 			state.currentBun = null;
@@ -108,4 +103,5 @@ export const {
 	backupOrderIngridients,
 	makeReserveOrderIngridients,
 	clearReserveOrderIngridients,
+	resetOrder,
 } = orderSlice.actions;

@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getIngridientsFetch } from "../../utils/getIngridientsRequest";
+import { getIngridientsFetch } from "../requests";
 
 export const ingridientsSlice = createSlice({
 	name: "ingridients",
 	initialState: {
-		status: "notRequested",
+		status: "idle",
 		error: null,
 		ingridients: [],
 	},

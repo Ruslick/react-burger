@@ -1,57 +1,120 @@
-/////////////
-import { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-
-import styles from "./App.module.css";
-
-import { getIngridientsFetch } from "../../utils/getIngridientsRequest";
-
-import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngridients from "../BurgerIngredients/BurgerIngridients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
+import React, { useEffect } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import {
+	ConstructorPage,
+	LoginPage,
+	ResetPasswordPage,
+	RegisterPage,
+	ForgotPasswordPage,
+} from "../../pages";
+import OrderHistory from "../../pages/OrederHistory/OrderHistory";
+import ProfilePage from "../../pages/Profile/ProfilePage";
+import OrderDetails from "../BurgerConstructor/OrderDetails/OrderDetails";
+import Layout from "../Layout/Layout";
+import ProtectedRoute from "../hocs/ProtectedRoute/ProtectedRoute";
+import IngredientDetails from "../BurgerIngredients/IngredientDetails/IngredientDetails";
+import Modal from "../Modal/Modal";
+import { useDispatch } from "react-redux";
+import { getIngridientsFetch } from "../../services/requests";
 
 function App() {
+	const location = useLocation();
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
-	const { status, error } = useSelector((state) => state.ingridientsSlice);
 
 	useEffect(() => {
 		dispatch(getIngridientsFetch());
 	}, [dispatch]);
 
-	const content = useMemo(() => {
-		if (status === "loading") {
-			return <p className="text text_type_main-large mt-10">{"Загрузка..."}</p>;
-		}
-		if (status === "failed") {
-			console.warn(error);
-			return (
-				<p className="text text_type_main-large mt-10">
-					{"Упс произошла ошибка :("}
-				</p>
-			);
-		}
+	const background = location.state?.from;
 
-		if (status === "received") {
-			return (
-				<>
-					<DndProvider backend={HTML5Backend}>
-						<BurgerIngridients />
-						<BurgerConstructor />
-					</DndProvider>
-				</>
-			);
-		}
-	}, [error, status]);
+	const closeModalHandler = () => {
+		navigate(-1);
+	};
 
 	return (
 		<>
-			<AppHeader />
-			<div className="container">
-				<section className={styles.wrapper}>{content}</section>
-			</div>
+			<Routes>
+				<Route path="/" element={<Layout />}>
+					<Route path="" element={<ConstructorPage />}>
+						{background && (
+							<Route
+								path="order-details"
+								element={
+									<ProtectedRoute>
+										<Modal onClose={closeModalHandler}>
+											<OrderDetails />
+										</Modal>
+									</ProtectedRoute>
+								}
+							></Route>
+						)}
+
+						{background && (
+							<Route
+								path="ingridient/:id"
+								element={
+									<Modal title="Детали ингредиента" onClose={closeModalHandler}>
+										<IngredientDetails />
+									</Modal>
+								}
+							></Route>
+						)}
+					</Route>
+
+					<Route path="ingridient/:id" element={<IngredientDetails />}></Route>
+
+					<Route
+						path="register"
+						element={
+							<ProtectedRoute mustAuth={false}>
+								<RegisterPage />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="forgot-password"
+						element={
+							<ProtectedRoute mustAuth={false}>
+								<ForgotPasswordPage />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="reset-password"
+						element={
+							<ProtectedRoute mustAuth={false}>
+								<ResetPasswordPage />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="profile"
+						element={
+							<ProtectedRoute>
+								<ProfilePage />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="profile/orders"
+						element={
+							<ProtectedRoute>
+								<OrderHistory />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/login"
+						element={
+							<ProtectedRoute mustAuth={false}>
+								<LoginPage />
+							</ProtectedRoute>
+						}
+					/>
+				</Route>
+				<Route path="*" element={<div>404</div>} />
+			</Routes>
 		</>
 	);
 }

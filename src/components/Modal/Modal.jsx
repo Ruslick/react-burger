@@ -20,10 +20,10 @@ function Modal({ title, children, onClose }) {
 	return createPortal(
 		<ModalOverlay onClose={onClose}>
 			<div className={styles.modal}>
-				<div className={styles.modelHeader + " mt-10 mr-10 ml-10"}>
+				<section className={styles.modelHeader + " mt-10 mr-10 ml-10"}>
 					{title && <p className="text text_type_main-large">{title}</p>}
 					<CloseButton onClick={onClose}></CloseButton>
-				</div>
+				</section>
 				{children}
 			</div>
 		</ModalOverlay>,
@@ -33,8 +33,8 @@ function Modal({ title, children, onClose }) {
 
 Modal.propTypes = {
 	children: PropTypes.element.isRequired,
-	onClose: PropTypes.func.isRequired,
 	title: PropTypes.string,
+	onClose: PropTypes.func,
 };
 
 export default Modal;

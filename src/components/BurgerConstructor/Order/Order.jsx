@@ -2,9 +2,9 @@ import React, { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
-import styles from "./Order.module.css";
-
 import OrderIngridient from "../OrderIngridient/OrderIngridient";
+
+import styles from "./Order.module.css";
 
 import {
 	addOrderIngridient,
@@ -54,7 +54,7 @@ function Order() {
 
 	return (
 		<section
-			className={styles.wrapper + " mt-25"}
+			className={styles.wrapper}
 			style={{ height: window.innerHeight / 2 }}
 			ref={ingridientDropTarget}
 		>

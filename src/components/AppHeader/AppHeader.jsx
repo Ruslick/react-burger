@@ -4,27 +4,42 @@ import {
 	ListIcon,
 	ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import { Link, NavLink } from "react-router-dom";
 
 import styles from "./AppHeader.module.css";
-import NavLink from "../ui/NavLink/NavLink.jsx";
 
 function AppHeader() {
+	const classNameHandle = ({ isActive }) => {
+		let color = `${
+			isActive
+				? `${styles.link} text_color_primary`
+				: `${styles.activeLink} text_color_inactive`
+		}`;
+		return `${color} ${styles.link} text text_type_main-small p-5`;
+	};
+
 	return (
-		<header className={styles.wrapper + " mt-10 mr-10 ml-10"}>
+		<header className={styles.wrapper + " mt-10 mr-10 ml-10 mb-25"}>
 			<div className="container">
 				<section className={styles.header + " pt-4 pb-4"}>
 					<div className={styles.leftMenu}>
-						<NavLink active icon={BurgerIcon}>
-							Конструктор
+						<NavLink id="constructor" className={classNameHandle} to={"/"}>
+							<BurgerIcon />
+							<span>Конструктор</span>
 						</NavLink>
-						<NavLink icon={ListIcon}>Лента заказов</NavLink>
+						<NavLink id="orders" className={classNameHandle} to={"/tape"}>
+							<ListIcon />
+							<span>Лента заказов</span>
+						</NavLink>
 					</div>
-					<div className={styles.logo}>
+					<Link to='/' className={styles.logo}>
 						<Logo />
-					</div>
+					</Link>
 					<div className={styles.rightMenu}>
-						<NavLink icon={ProfileIcon}>Личный кабинет</NavLink>
+						<NavLink id="profile" className={classNameHandle} to={"/profile"}>
+							<ProfileIcon />
+							<span>Личный кабинет</span>
+						</NavLink>
 					</div>
 				</section>
 			</div>

@@ -1,16 +1,16 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+
+import styles from "./OrderInfo.module.css";
 import {
 	Button,
 	CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../../../services/slices/orderSlice";
-import styles from "./OrderInfo.module.css";
 
 function OrderInfo() {
-	const dispatch = useDispatch();
+	const location = useLocation();
 	const totalPrice = useSelector((state) => state.orderSlice.totalPrice);
-
 	return (
 		<>
 			<section className={styles.orderInfo + " mt-10"}>
@@ -18,13 +18,11 @@ function OrderInfo() {
 					<p className="text text_type_digits-medium">{totalPrice}</p>
 					<CurrencyIcon type="primary" />
 				</div>
-				<Button
-					type="primary"
-					size="large"
-					onClick={() => dispatch(openModal())}
-				>
-					Оформить заказ
-				</Button>
+				<Link to="/order-details" state={{ from: location.pathname }}>
+					<Button type="primary" size="large">
+						Оформить заказ
+					</Button>
+				</Link>
 			</section>
 		</>
 	);

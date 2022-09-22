@@ -1,18 +1,20 @@
-import {
-	ConstructorElement,
-	DragIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useRef } from "react";
-import styles from "./OrderIngridient.module.css";
+import { useDispatch } from "react-redux";
+
 import PropTypes from "prop-types";
 import { ingridientShape } from "../../../utils/types";
-import { useDispatch } from "react-redux";
+import styles from "./OrderIngridient.module.css";
+
 import {
 	backupOrderIngridients,
 	clearReserveOrderIngridients,
 	makeReserveOrderIngridients,
 	removeOrderIngridient,
 } from "../../../services/slices/orderSlice";
+import {
+	ConstructorElement,
+	DragIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 
 function OrderIngridient({
@@ -125,6 +127,8 @@ OrderIngridient.propTypes = {
 	ingridient: PropTypes.shape(ingridientShape),
 	type: PropTypes.string,
 	isLocked: PropTypes.bool,
+	moveCard: PropTypes.func.isRequired,
+	index: PropTypes.number,
 };
 
 export default OrderIngridient;
