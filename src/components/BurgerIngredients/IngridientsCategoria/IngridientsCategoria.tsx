@@ -11,6 +11,7 @@ const IngridientsCategoria: FC<IIngridientsCategoriaProps> = ({
 	scrollPosition,
 }) => {
 	const dispatch = useDispatch();
+	
 	const ingridients = useSelector<any, any>(
 		(state) => state.ingridientsSlice.ingridients
 	);

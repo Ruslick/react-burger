@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
@@ -11,18 +11,23 @@ import {
 	CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function Ingridient({ ingridient }: {ingridient: IIngridient}) {
+const Ingridient: FC<{ ingridient: IIngridient }> = ({ ingridient }) => {
 	const { name, image, price, _id } = ingridient;
 	const navigate = useNavigate();
-	const location = useLocation()
+	const location = useLocation();
 
-	const currentBun = useSelector<any, any>((state) => state.orderSlice.currentBun);
-	const qty = useSelector<any, any>(
-		(state) =>
-			state.orderSlice.orderIngridients.filter(
-				(orderIngridient: IIngridient) => orderIngridient._id === ingridient._id
-			).length
+	const { currentBun, orderIngridients } = useSelector<any, any>(
+		(state) => state.orderSlice
 	);
+
+	const qty = useMemo(
+		() =>
+			orderIngridients.filter(
+				(orderIngridient: IIngridient) => orderIngridient._id === ingridient._id
+			).length,
+		[ingridient, orderIngridients]
+	);
+
 	const canDrag = ingridient.type === "bun" || currentBun;
 
 	const [, dragItem] = useDrag({
@@ -33,9 +38,8 @@ function Ingridient({ ingridient }: {ingridient: IIngridient}) {
 		},
 	});
 
-
-	const clinkHandle = () => {
-		navigate(`/ingridient/${_id}`, {state: {from: location.pathname}});
+	const goToIngridient = () => {
+		navigate(`/ingridient/${_id}`, { state: { from: location.pathname } });
 	};
 
 	return (
@@ -43,7 +47,7 @@ function Ingridient({ ingridient }: {ingridient: IIngridient}) {
 			<li
 				className={styles.item}
 				style={{ opacity: canDrag ? 1 : 0.5 }}
-				onClick={clinkHandle}
+				onClick={goToIngridient}
 				ref={dragItem}
 			>
 				<div className={styles.counter}>
@@ -58,7 +62,6 @@ function Ingridient({ ingridient }: {ingridient: IIngridient}) {
 			</li>
 		</>
 	);
-}
-
+};
 
 export default Ingridient;

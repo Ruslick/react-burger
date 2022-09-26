@@ -8,7 +8,6 @@ import { Navigate } from "react-router-dom";
 import { resetOrder } from "../../../services/slices/orderSlice";
 import Loading from "../../statuses/Loading/Loading";
 import { postOrderFetch } from "../../../services/requests";
-import { IOrderSlice, TStore } from "../../../utils/types";
 
 
 export default function OrderDetails() {
@@ -20,7 +19,7 @@ export default function OrderDetails() {
 		};
 	}, [dispatch]);
 
-	const { order, status } = useSelector<TStore, IOrderSlice>((state) => state.orderSlice);
+	const { order, status } = useSelector<any, any>((state) => state.orderSlice);
 
 
 	if (status === "failed") {

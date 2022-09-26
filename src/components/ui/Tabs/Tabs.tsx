@@ -3,18 +3,18 @@ import React, { useMemo } from "react";
 import styles from "./Tabs.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTab } from "../../../services/slices/categoriaSlice";
-import { ICategoriaSlice} from "../../../utils/types";
+import { ICategorias } from "../../../utils/types";
 
 function BurgerIngridientsTabs() {
 	const dispatch = useDispatch();
 
-	const {ingridientsCategorias, activeCategoria} = useSelector<any, ICategoriaSlice>(
+	const {ingridientsCategorias, activeCategoria} = useSelector<any, any>(
 		(state) => state.categoriaSlice
 	);
 
 	const tabs = useMemo(
 		() =>
-			ingridientsCategorias.map((c) => {
+			ingridientsCategorias.map((c: ICategorias) => {
 				const selectCategoria = (categoria: string): void => {
 					dispatch(selectTab(categoria));
 				};

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { ReactElement, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
@@ -11,12 +11,12 @@ import {
 	switchBun,
 	updateOrderIngridients,
 } from "../../../services/slices/orderSlice";
-import { TStore } from "../../../utils/types/store";
+
 import { IIngridient } from "../../../utils/types";
 
 function Order() {
 	const dispatch = useDispatch();
-	const { currentBun, orderIngridients } = useSelector<TStore, any>(
+	const { currentBun, orderIngridients } = useSelector<any, any>(
 		(state) => state.orderSlice
 	);
 	const [, ingridientDropTarget] = useDrop({
@@ -51,8 +51,7 @@ function Order() {
 					moveCard={moveCard}
 				/>
 			))
-			.filter((i: React.ReactElement) => {
-				console.log(i);
+			.filter((i: ReactElement) => {
 				return i.props.ingridient.type !== "bun";
 			});
 	}, [moveCard, orderIngridients]);

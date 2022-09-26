@@ -7,11 +7,10 @@ import {
 	Button,
 	CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IOrderSlice, TStore } from "../../../utils/types";
 
 function OrderInfo() {
 	const location = useLocation();
-	const {totalPrice} = useSelector<TStore, IOrderSlice>((state) => state.orderSlice);
+	const { totalPrice } = useSelector<any, any>((state) => state.orderSlice);
 	return (
 		<>
 			<section className={styles.orderInfo + " mt-10"}>

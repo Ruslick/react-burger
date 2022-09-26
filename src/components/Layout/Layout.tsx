@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import AppHeader from "../AppHeader/AppHeader";
 
-function Layout() {
+export function Layout() {
 	return (
 		<>
 			<AppHeader />
@@ -14,4 +14,4 @@ function Layout() {
 	);
 }
 
-export default Layout;
+

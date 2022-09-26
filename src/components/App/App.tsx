@@ -10,7 +10,7 @@ import {
 import OrderHistory from "../../pages/OrederHistory/OrderHistory";
 import ProfilePage from "../../pages/Profile/ProfilePage";
 import OrderDetails from "../BurgerConstructor/OrderDetails/OrderDetails";
-import Layout from "../Layout/Layout";
+import {Layout} from "../Layout/Layout";
 import IngredientDetails from "../BurgerIngredients/IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
 import { useDispatch } from "react-redux";

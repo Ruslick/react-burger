@@ -1,16 +1,7 @@
-import React, { ReactNode } from "react";
+import React from "react";
+import { IAuthTemplateProps } from "../../utils/types";
 
 import style from "./AuthTemplate.module.css";
-
-interface IAuthTemplate {
-	id?: string,
-	title: string,
-	inputs: ReactNode[],
-	button: ReactNode,
-	additionActions: ReactNode[],
-	onSubmit: VoidFunction,
-}
-
 
 function AuthTemplate({
 	id,
@@ -19,7 +10,7 @@ function AuthTemplate({
 	button,
 	additionActions,
 	onSubmit,
-}: IAuthTemplate) {
+}: IAuthTemplateProps) {
 	return (
 		<div className={style.wrapper}>
 			<form id={id} className={style.content} onSubmit={onSubmit}>

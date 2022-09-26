@@ -12,7 +12,9 @@ import Failed from "../../components/statuses/Failed/Failed";
 import { Outlet } from "react-router-dom";
 
 function ConstructorPage() {
-	const { status, error } = useSelector<any, any>((state) => state.ingridientsSlice);
+	const { status, error } = useSelector<any, any>(
+		(state) => state.ingridientsSlice
+	);
 
 	const content = useMemo(() => {
 		if (status === "loading") {

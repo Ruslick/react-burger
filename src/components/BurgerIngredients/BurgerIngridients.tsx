@@ -5,13 +5,14 @@ import IngridientsCategoria from "./IngridientsCategoria/IngridientsCategoria";
 
 import { useSelector } from "react-redux";
 import { ICategorias } from "../../utils/types/store";
+
 function BurgerIngridients() {
 	const ingridientsCategorias = useSelector<any, any>(
 		(state) => state.categoriaSlice.ingridientsCategorias
 	);
 	const ref = useRef<HTMLUListElement>();
 
-	const [scrollPosition, setScrollPosition] = useState(0);
+	const [scrollPosition, setScrollPosition] = useState<number>(0);
 	return (
 		<section>
 			<div className={`${styles.title} mt-10 mb-5`}>

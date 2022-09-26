@@ -13,6 +13,7 @@ function useAuth() {
 	class Auth {
 		static succsess = user;
 		static isLoaded = isLoaded;
+		
 		static login(data: object) {
 			dispatch(postLoginFetch(data) as any);
 		}

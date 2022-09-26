@@ -9,12 +9,12 @@ function ProfilePage() {
 	const Auth = useAuth();
 	const navigate = useNavigate();
 
-	const classNameHandle = ({ isActive }: {isActive: boolean}) => {
+	const classNameHandle = ({ isActive }:{ isActive: boolean }): string => {
 		const colorClass = isActive ? `text_color_primary` : `text_color_inactive`;
 		return `${colorClass} ${style.link} text text_type_main-medium mt-1 mb-1 `;
 	};
 
-	const logoutHandler = () => {
+	const logoutHandler: VoidFunction = () => {
 		Auth.logout();
 		navigate("/");
 	};

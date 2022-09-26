@@ -9,7 +9,7 @@ import { Link, NavLink } from "react-router-dom";
 import styles from "./AppHeader.module.css";
 
 function AppHeader() {
-	const classNameHandle = ({ isActive }: {readonly isActive: boolean}) => {
+	const classNameHandle = ({ isActive }: { readonly isActive: boolean }) => {
 		let color = `${
 			isActive
 				? `${styles.link} text_color_primary`
@@ -28,11 +28,11 @@ function AppHeader() {
 							<span>Конструктор</span>
 						</NavLink>
 						<NavLink id="orders" className={classNameHandle} to={"/tape"}>
-							<ListIcon type="primary"/>
+							<ListIcon type="primary" />
 							<span>Лента заказов</span>
 						</NavLink>
 					</div>
-					<Link to='/' className={styles.logo}>
+					<Link to="/" className={styles.logo}>
 						<Logo />
 					</Link>
 					<div className={styles.rightMenu}>

@@ -16,9 +16,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
-import { IOrderIngridient } from "../../../utils/types/index";
+import { IOrderIngridientProps } from "../../../utils/types/index";
 
-const OrderIngridient: FC<IOrderIngridient> = ({
+const OrderIngridient: FC<IOrderIngridientProps> = ({
 	ingridient,
 	isLocked = false,
 	position,

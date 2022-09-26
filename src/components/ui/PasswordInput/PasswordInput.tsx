@@ -3,7 +3,7 @@ import React, { FC, useState } from "react";
 
 const PasswordInput: FC<any> = (props) => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
-	const iconClickHandle = () => {
+	const iconClickHandle: VoidFunction = () => {
 		setIsVisible(!isVisible);
 	};
 
