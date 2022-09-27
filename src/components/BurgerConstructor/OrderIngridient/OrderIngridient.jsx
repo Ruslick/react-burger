@@ -1,6 +1,8 @@
-import React, { FC, SyntheticEvent, useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 
+import PropTypes from "prop-types";
+import { ingridientShape } from "../../../utils/types";
 import styles from "./OrderIngridient.module.css";
 
 import {
@@ -9,62 +11,54 @@ import {
 	makeReserveOrderIngridients,
 	removeOrderIngridient,
 } from "../../../services/slices/orderSlice";
-
 import {
 	ConstructorElement,
 	DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDrag, useDrop } from "react-dnd";
 
-import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
-import { IOrderIngridientProps } from "../../../utils/types/index";
-
-const OrderIngridient: FC<IOrderIngridientProps> = ({
+function OrderIngridient({
 	ingridient,
 	isLocked = false,
-	position,
+	type,
 	moveCard,
 	index,
-}) => {
+}) {
 	const dispatch = useDispatch();
 	const { name, price, image } = ingridient;
 
 	const postfixName =
-		position === "top"
+		type === "top"
 			? `${name} (верх)`
-			: position === "bottom"
+			: type === "bottom"
 			? `${name} (низ)`
 			: name;
 
 	const handleClose = () => {
 		dispatch(removeOrderIngridient(ingridient));
 	};
-	const ingridientRef = useRef<HTMLDivElement>(null);
-	const [{ handlerId }, drop] = useDrop<{ index: number }, any, any>({
+	const ingridientRef = useRef(null);
+
+	const [{ handlerId }, drop] = useDrop({
 		accept: "orderIngridient",
 		collect(monitor) {
 			return {
 				handlerId: monitor.getHandlerId(),
 			};
 		},
-		hover(item: { index: number }, monitor: DropTargetMonitor) {
-			console.warn(item);
+		hover(item, monitor) {
 			if (!ingridientRef.current) {
 				return;
 			}
 			const dragIndex = item.index;
 			const hoverIndex = index;
-			if (!hoverIndex) return;
 			if (dragIndex === hoverIndex) {
 				return;
 			}
-			const hoverBoundingRect =
-				ingridientRef.current?.getBoundingClientRect &&
-				ingridientRef.current?.getBoundingClientRect();
-			if (!hoverBoundingRect) return;
+			const hoverBoundingRect = ingridientRef.current?.getBoundingClientRect();
 			const hoverMiddleY =
 				(hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 			const clientOffset = monitor.getClientOffset();
-			if (!clientOffset) return;
 			const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 			if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
 				return;
@@ -80,14 +74,14 @@ const OrderIngridient: FC<IOrderIngridientProps> = ({
 		type: "orderIngridient",
 		item: () => ({ id: ingridient._number, index }),
 		canDrag() {
-			dispatch(makeReserveOrderIngridients(null));
+			dispatch(makeReserveOrderIngridients());
 			return true;
 		},
 		end(_, monitor) {
 			if (!monitor.getDropResult()) {
-				dispatch(backupOrderIngridients(null));
+				dispatch(backupOrderIngridients());
 			}
-			dispatch(clearReserveOrderIngridients(null));
+			dispatch(clearReserveOrderIngridients());
 		},
 
 		collect: (monitor) => ({
@@ -96,8 +90,7 @@ const OrderIngridient: FC<IOrderIngridientProps> = ({
 	});
 	const opacity = isDragging ? 0.5 : 1;
 	if (ingridient.type !== "bun") drag(drop(ingridientRef));
-	const preventDefault = (e: SyntheticEvent) => e.preventDefault();
-	console.log(handlerId)
+	const preventDefault = (e) => e.preventDefault();
 
 	return (
 		ingridient && (
@@ -117,7 +110,7 @@ const OrderIngridient: FC<IOrderIngridientProps> = ({
 						<div className={styles.iconWrapper}></div>
 					)}
 					<ConstructorElement
-						type={position}
+						type={type}
 						isLocked={isLocked}
 						text={postfixName}
 						price={price}
@@ -128,6 +121,14 @@ const OrderIngridient: FC<IOrderIngridientProps> = ({
 			</>
 		)
 	);
+}
+
+OrderIngridient.propTypes = {
+	ingridient: PropTypes.shape(ingridientShape),
+	type: PropTypes.string,
+	isLocked: PropTypes.bool,
+	moveCard: PropTypes.func.isRequired,
+	index: PropTypes.number,
 };
 
 export default OrderIngridient;

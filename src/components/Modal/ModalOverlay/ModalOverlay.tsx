@@ -1,7 +1,8 @@
 import React, {  FC, SyntheticEvent } from "react";
+import { IModalProps } from "../../../utils/types";
 import styles from "../Modal.module.css";
 
-const ModalOverlay:FC<{onClose: () => void}> = ({ children, onClose }) =>  {
+const ModalOverlay:FC<Pick<IModalProps, "onClose">> = ({ children, onClose }) =>  {
 	function clickHandler(e: SyntheticEvent) {
 		const target = e.target as HTMLDivElement
 		if ((target.id) === "ModalOverlay") {

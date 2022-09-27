@@ -3,8 +3,9 @@ import styles from "./Modal.module.css";
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
 import { createPortal } from "react-dom";
 import { CloseButton } from "../ui/CloseButton/CloseButton";
+import { IModalProps } from "../../utils/types";
 
-const Modal: FC<{title?: string, onClose: () => void}> = ({ title, children, onClose }) =>  {
+const Modal: FC<IModalProps> = ({ title, children, onClose }) =>  {
 	useEffect(() => {
 		const keyHandler = (e: KeyboardEventInit) => {
 			if (e.key === "Escape") onClose();

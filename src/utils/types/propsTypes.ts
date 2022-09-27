@@ -30,3 +30,8 @@ export interface IAdditionalActionProps {
 	linkText: string;
 	to: string;
 }
+
+export interface IModalProps {
+	title?: string, 
+	onClose: VoidFunction
+}
