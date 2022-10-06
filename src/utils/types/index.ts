@@ -1,6 +1,22 @@
 import { OutgoingHttpHeaders } from "http";
 import { TCategorias } from "./store";
 
+export interface IOrder {
+		_id: string;
+		createdAt: string; //"2022-10-05T20:02:19.934Z"
+		ingredients: IIngridient[];
+		name: string;
+		number: number;
+		owner: {
+			name: string;
+			email: string;
+			createdAt: string;
+			updatedAt: string;
+		};
+		price: number;
+		status: string;
+		updatedAt: string;
+}
 export interface IAuthTemplateParams {
 	method: TRequestsMethods;
 	data?: Array<any>;
@@ -38,6 +54,8 @@ export interface IResponseData {
 		name: string;
 	};
 	data?: Array<IIngridient>;
+	name: string;
+	order: IOrder;
 }
 export type TRequestsMethods = "GET" | "POST" | "PATCH";
 
@@ -46,6 +64,7 @@ export interface IOptions {
 	headers: OutgoingHttpHeaders;
 	body?: {};
 }
+
 
 export * from "./store";
 export * from "./propsTypes";

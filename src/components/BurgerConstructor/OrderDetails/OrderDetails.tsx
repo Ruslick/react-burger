@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./OrderDetails.module.css";
 
@@ -8,18 +7,20 @@ import { Navigate } from "react-router-dom";
 import { resetOrder } from "../../../services/slices/orderSlice";
 import Loading from "../../statuses/Loading/Loading";
 import { postOrderFetch } from "../../../services/requests";
+import { useAppDispatch, useAppSelector } from "../../../services";
 
 
 export default function OrderDetails() {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	useEffect(() => {
-		dispatch(postOrderFetch() as any);
+		dispatch(postOrderFetch());
 		return () => {
-			dispatch(resetOrder(null));
+			dispatch(resetOrder());
 		};
 	}, [dispatch]);
 
-	const { order, status } = useSelector<any, any>((state) => state.orderSlice);
+	const { order, status } = useAppSelector((state) => state.orderSlice);
+
 
 
 	if (status === "failed") {
@@ -30,7 +31,7 @@ export default function OrderDetails() {
 		return (
 			<div className={styles.content + " pt-4 pr-30 pb-30 pl-30"}>
 				<h1 className={styles.digits + " text text_type_digits-large"}>
-					{order.number}
+					{order?.number}
 				</h1>
 				<p className="text mt-8">идентификатор заказа</p>
 				<img className={styles.done + " mt-15"} src={done} alt="done..." />

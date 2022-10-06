@@ -9,12 +9,12 @@ export interface IIngridientsCategoriaProps {
 }
 
 export interface IAuthTemplateProps {
-	id?: string,
-	title: string,
-	inputs: ReactNode[],
-	button: ReactNode,
-	additionActions: ReactNode[],
-	onSubmit: VoidFunction,
+	id?: string;
+	title: string;
+	inputs: ReactNode[];
+	button: ReactNode;
+	additionActions: ReactNode[];
+	onSubmit: VoidFunction;
 }
 
 export interface IOrderIngridientProps {
@@ -32,6 +32,6 @@ export interface IAdditionalActionProps {
 }
 
 export interface IModalProps {
-	title?: string, 
-	onClose: VoidFunction
+	title?: string;
+	onClose: VoidFunction;
 }

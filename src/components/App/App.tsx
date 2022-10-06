@@ -13,18 +13,18 @@ import OrderDetails from "../BurgerConstructor/OrderDetails/OrderDetails";
 import {Layout} from "../Layout/Layout";
 import IngredientDetails from "../BurgerIngredients/IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
-import { useDispatch } from "react-redux";
 import { getIngridientsFetch } from "../../services/requests";
 import { ProtectedRoute } from "../hocs/ProtectedRoute/ProtectedRoute";
 import { ILocation } from "../../utils/types";
+import { useAppDispatch } from "../../services";
 
 function App() {
 	const location = useLocation();
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		dispatch(getIngridientsFetch() as any);
+		dispatch(getIngridientsFetch());
 	}, [dispatch]);
 
 	const locationState = location.state as ILocation | undefined;

@@ -3,16 +3,16 @@ import Tabs from "../ui/Tabs/Tabs";
 import styles from "./BurgerIngridients.module.css";
 import IngridientsCategoria from "./IngridientsCategoria/IngridientsCategoria";
 
-import { useSelector } from "react-redux";
-import { ICategorias } from "../../utils/types/store";
+import { TCategorias, TCategoriasNames } from "../../utils/types/store";
+import { useAppSelector } from "../../services";
 
 function BurgerIngridients() {
-	const ingridientsCategorias = useSelector<any, any>(
+	const ingridientsCategorias = useAppSelector(
 		(state) => state.categoriaSlice.ingridientsCategorias
 	);
 	const ref = useRef<HTMLUListElement>();
 
-	const [scrollPosition, setScrollPosition] = useState<number>(0);
+	const [scrollPosition, setScrollPosition] = useState(0);
 	return (
 		<section>
 			<div className={`${styles.title} mt-10 mb-5`}>
@@ -22,18 +22,19 @@ function BurgerIngridients() {
 			<ul
 				className={`${styles.list} scroll`}
 				onScroll={(e: SyntheticEvent) => {
-					const target: {scrollTop: number, offsetTop: number}  = e.target as any 
+					const target: { scrollTop: number; offsetTop: number } =
+						e.target as any;
 					setScrollPosition(target.scrollTop + target.offsetTop);
 				}}
 				ref={ref as LegacyRef<HTMLUListElement>}
 			>
-				{ingridientsCategorias.map((c: ICategorias) => (
+				{ingridientsCategorias.map((c) => (
 					<IngridientsCategoria
 						key={c.type}
-						type={c.type}
+						type={c.type as TCategorias}
 						scrollPosition={scrollPosition}
 					>
-						{c.name}
+						{c.name as TCategoriasNames}
 					</IngridientsCategoria>
 				))}
 			</ul>

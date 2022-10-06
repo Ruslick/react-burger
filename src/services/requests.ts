@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from ".";
 import {
 	USER_DATA_URL,
 	INGRIDIENTS_URL,
@@ -27,11 +28,10 @@ const getTokens = () => {
 	return requestToUrl(UPDATE_TOKEN_URL, postOption({ token }));
 };
 
-// корневой запрос от которого нужно наследоваться
 function requestToUrl(
 	url: string,
 	options: () => RequestInit
-): Promise<IResponseData> | undefined {
+) {
 	try {
 		return fetch(url, options())
 			.then(async (res: Response) => {
@@ -58,7 +58,7 @@ function requestToUrl(
 				return Promise.reject(responseData);
 			});
 	} catch (e) {
-		console.warn(e);
+		return Promise.reject(e);
 	}
 }
 
@@ -66,7 +66,8 @@ function requestToUrl(
 export const getIngridientsFetch = createAsyncThunk(
 	"ingridients/getIngridientsFetch",
 	async () => {
-		return await requestToUrl(INGRIDIENTS_URL, getOption())?.then(
+		return await requestToUrl(INGRIDIENTS_URL, getOption())
+		.then(
 			(requestData: IResponseData) => requestData.data
 		)
 	}
@@ -75,9 +76,10 @@ export const getIngridientsFetch = createAsyncThunk(
 // пост запрос заказа и получение номера заказа
 export const postOrderFetch = createAsyncThunk(
 	"ingridients/postOrderFetch",
-	async (_, { getState }: any) => {
+	async (_, thunkAPI)  => {
+		const rootState = thunkAPI.getState() as RootState
 		const data = {
-			ingredients: getState().orderSlice.orderIngridients.map(
+			ingredients: rootState.orderSlice.orderIngridients.map(
 				(ingridient: IIngridient) => ingridient._id
 			),
 		};
@@ -112,6 +114,7 @@ export const postLoginFetch = createAsyncThunk(
 		return await requestToUrl(LOGIN_URL, postOption(formData));
 	}
 );
+
 export const postLogoutFetch = createAsyncThunk(
 	"auth/postLogoutFetch",
 	async () => {

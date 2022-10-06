@@ -6,17 +6,17 @@ import {
 
 import AdditionalAction from "../../components/ui/AdditionalAction/AdditionalAction";
 import AuthTemplate from "../../components/AuthTemplate/AuthTemplate";
-import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { ResetPasswordSchema } from "../../utils/validateSchemas";
 import { postPasswordResetFetch } from "../../services/requests";
 import { Navigate, useLocation } from "react-router-dom";
 import PasswordInput from "../../components/ui/PasswordInput/PasswordInput";
 import { ILocation } from "../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../services";
 
 function ResetPasswordPage() {
-	const dispatch = useDispatch();
-	const reseted = useSelector<any, any>(
+	const dispatch = useAppDispatch();
+	const reseted = useAppSelector(
 		(store) => store.authSlice.resetPasswordStatus === "reseted"
 	);
 	const {

@@ -1,6 +1,5 @@
 import React, { FC, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 
 import styles from "./Ingridient.module.css";
@@ -10,13 +9,14 @@ import {
 	Counter,
 	CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useAppSelector } from "../../../services";
 
 const Ingridient: FC<{ ingridient: IIngridient }> = ({ ingridient }) => {
 	const { name, image, price, _id } = ingridient;
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const { currentBun, orderIngridients } = useSelector<any, any>(
+	const { currentBun, orderIngridients } = useAppSelector(
 		(state) => state.orderSlice
 	);
 
@@ -33,9 +33,6 @@ const Ingridient: FC<{ ingridient: IIngridient }> = ({ ingridient }) => {
 	const [, dragItem] = useDrag({
 		type: "ingridient",
 		item: ingridient,
-		canDrag() {
-			return canDrag;
-		},
 	});
 
 	const goToIngridient = () => {

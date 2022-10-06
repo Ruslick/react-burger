@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 import styles from "./OrderInfo.module.css";
@@ -7,10 +6,11 @@ import {
 	Button,
 	CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useAppSelector } from "../../../services";
 
 function OrderInfo() {
 	const location = useLocation();
-	const { totalPrice } = useSelector<any, any>((state) => state.orderSlice);
+	const { totalPrice } = useAppSelector((state) => state.orderSlice);
 	return (
 		<>
 			<section className={styles.orderInfo + " mt-10"}>

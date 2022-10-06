@@ -2,7 +2,7 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { FC, useState } from "react";
 
 const PasswordInput: FC<any> = (props) => {
-	const [isVisible, setIsVisible] = useState<boolean>(false);
+	const [isVisible, setIsVisible] = useState(false);
 	const iconClickHandle: VoidFunction = () => {
 		setIsVisible(!isVisible);
 	};

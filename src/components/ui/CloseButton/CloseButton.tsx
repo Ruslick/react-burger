@@ -4,7 +4,7 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./CloseButton.module.css";
 
 export const CloseButton: FC<{onClick: () => void}> =({ onClick }) => {
-	const [isHovered, setIsHovered] = useState<boolean>(false);
+	const [isHovered, setIsHovered] = useState(false);
 
 	return (
 		<button

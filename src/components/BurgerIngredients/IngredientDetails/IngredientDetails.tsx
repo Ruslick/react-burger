@@ -1,13 +1,13 @@
 import React, { useMemo } from "react";
 import styles from "./IngredientDetails.module.css";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Loading from "../../statuses/Loading/Loading";
 import { IIngridient } from "../../../utils/types/index";
+import { useAppSelector } from "../../../services";
 
 function IngredientDetails() {
 	const { id } = useParams();
-	const { ingridients, status } = useSelector<any, any>(
+	const { ingridients, status } = useAppSelector(
 		(store) => store.ingridientsSlice
 	);
 
@@ -18,7 +18,7 @@ function IngredientDetails() {
 
 	if (status === "received") {
 		const { name, image_large, calories, carbohydrates, fat, proteins } =
-			ingridient;
+			ingridient as IIngridient;
 
 		return (
 			<div className={styles.wrapper}>

@@ -1,5 +1,5 @@
 export type TCategorias = "bun" | "sauce" | "main";
-type TCategoriasNames = "Булки" | "Cоусы" | "Начинки";
+export type TCategoriasNames = "Булки" | "Cоусы" | "Начинки";
 
 export interface ICategorias {
 	type: TCategorias;

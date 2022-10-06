@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -10,9 +9,10 @@ import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstruc
 import Loading from "../../components/statuses/Loading/Loading";
 import Failed from "../../components/statuses/Failed/Failed";
 import { Outlet } from "react-router-dom";
+import { useAppSelector } from "../../services";
 
 function ConstructorPage() {
-	const { status, error } = useSelector<any, any>(
+	const { status, error } = useAppSelector(
 		(state) => state.ingridientsSlice
 	);
 
