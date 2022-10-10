@@ -22,15 +22,15 @@ export default function OrderDetails() {
 	const { order, status } = useAppSelector((state) => state.orderSlice);
 
 
-
+ 
 	if (status === "failed") {
 		return <Navigate to="/" replace />;
 	}
 
 	if (status === "received") {
 		return (
-			<div className={styles.content + " pt-4 pr-30 pb-30 pl-30"}>
-				<h1 className={styles.digits + " text text_type_digits-large"}>
+			<div className={styles.content + " pt-4 mr-15 mb-15 ml-15"}>
+				<h1 className={"text text_type_digits-large shadow"}>
 					{order?.number}
 				</h1>
 				<p className="text mt-8">идентификатор заказа</p>
@@ -43,9 +43,7 @@ export default function OrderDetails() {
 		);
 	}
 	return (
-		<div className={styles.content + " pt-4 pr-30 pb-30 pl-30"}>
 			<Loading />
-		</div>
 	);
 
 }

@@ -3,7 +3,7 @@ import { IModalProps } from "../../../utils/types";
 import styles from "../Modal.module.css";
 
 const ModalOverlay:FC<Pick<IModalProps, "onClose">> = ({ children, onClose }) =>  {
-	function clickHandler(e: SyntheticEvent) {
+	function clickHandler(e: SyntheticEvent<HTMLDivElement>) {
 		const target = e.target as HTMLDivElement
 		if ((target.id) === "ModalOverlay") {
 			onClose();

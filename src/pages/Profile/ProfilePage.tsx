@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import ProfileForm from "../../components/ProfileForm/ProfileForm";
 import useAuth from "../../hooks/useAuth";
 
@@ -16,13 +16,12 @@ function ProfilePage() {
 
 	const logoutHandler: VoidFunction = () => {
 		Auth.logout();
-		navigate("/");
 	};
 
 	return (
 		<div className={style.wrapper + " mt-30"}>
 			<aside className={style.aside}>
-				<NavLink className={classNameHandle} to="/profile">
+				<NavLink className={classNameHandle} to="/profile" end>
 					Профиль
 				</NavLink>
 				<NavLink className={classNameHandle} to="/profile/orders">
@@ -39,7 +38,7 @@ function ProfilePage() {
 				</span>
 			</aside>
 			<main>
-				<ProfileForm />
+				<Outlet />
 			</main>
 		</div>
 	);

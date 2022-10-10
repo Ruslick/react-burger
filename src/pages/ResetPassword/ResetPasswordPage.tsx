@@ -19,6 +19,7 @@ function ResetPasswordPage() {
 	const reseted = useAppSelector(
 		(store) => store.authSlice.resetPasswordStatus === "reseted"
 	);
+
 	const {
 		handleChange,
 		handleSubmit,

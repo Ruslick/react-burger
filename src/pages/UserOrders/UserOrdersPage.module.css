@@ -1,0 +1,5 @@
+.contentList {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--x5);
+}

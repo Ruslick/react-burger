@@ -3,7 +3,7 @@ import { IIngridient } from "../../utils/types";
 import { getIngridientsFetch } from "../requests";
 
 interface IState {
-	status: string;
+	status: "idle" | "loading" | "received" | "failed";
 	error?: string;
 	ingridients: IIngridient[];
 }

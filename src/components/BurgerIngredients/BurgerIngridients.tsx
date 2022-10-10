@@ -3,7 +3,6 @@ import Tabs from "../ui/Tabs/Tabs";
 import styles from "./BurgerIngridients.module.css";
 import IngridientsCategoria from "./IngridientsCategoria/IngridientsCategoria";
 
-import { TCategorias, TCategoriasNames } from "../../utils/types/store";
 import { useAppSelector } from "../../services";
 
 function BurgerIngridients() {
@@ -31,10 +30,10 @@ function BurgerIngridients() {
 				{ingridientsCategorias.map((c) => (
 					<IngridientsCategoria
 						key={c.type}
-						type={c.type as TCategorias}
+						type={c.type}
 						scrollPosition={scrollPosition}
 					>
-						{c.name as TCategoriasNames}
+						{c.name}
 					</IngridientsCategoria>
 				))}
 			</ul>

@@ -1,5 +1,23 @@
 import { OutgoingHttpHeaders } from "http";
-import { TCategorias } from "./store";
+
+
+export interface IWSOrder {
+  "_id": string,
+  "ingredients": string[],
+  "status": string,
+  "name": string,
+  "createdAt": string,
+  "updatedAt": string,
+  "number": number
+}
+
+export interface IWSData {
+	orders: IWSOrder[];
+	success: boolean;
+	total: number;
+	totalToday: number;
+}
+
 
 export interface IOrder {
 		_id: string;
@@ -31,7 +49,7 @@ export interface ILocation {
 export interface IIngridient {
 	_id: string;
 	name: string;
-	type: TCategorias;
+	type: string;
 	proteins: number;
 	fat: number;
 	carbohydrates: number;
@@ -66,5 +84,16 @@ export interface IOptions {
 }
 
 
-export * from "./store";
+export interface ICategorias {
+	type: string;
+	name: string;
+}
+
+export interface ICategoriaSlice {
+	activeCategoria: string;
+	ingridientsCategorias: ICategorias[];
+}
+
+
+
 export * from "./propsTypes";

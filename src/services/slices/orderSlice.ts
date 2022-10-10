@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { v1 as getRandomId } from "uuid";
 import { IIngridient, IOrder} from "../../utils/types";
 import { postOrderFetch } from "../requests";
@@ -17,6 +17,7 @@ interface IState {
 	reserveOrderIngridients: IIngridient[];
 	totalPrice: number;
 	isOpenedModal: boolean;
+	currentOrder? : number
 }
 
 const initialState: IState = {
@@ -30,6 +31,7 @@ const initialState: IState = {
 
 	totalPrice: 0,
 	isOpenedModal: false,
+	currentOrder: undefined
 };
 
 
@@ -71,6 +73,9 @@ export const orderSlice = createSlice({
 		resetOrder() {
 			return { ...initialState };
 		},
+		setCurrentOrder(state, {payload}) {
+			state.currentOrder = payload
+		}
 	},
 	extraReducers(builder) {
 		builder
@@ -83,7 +88,7 @@ export const orderSlice = createSlice({
 			state.orderIngridients = [];
 			state.currentBun = undefined;
 		})
-		.addCase(postOrderFetch.rejected, (state, { payload }: PayloadAction<any>) => {
+		.addCase(postOrderFetch.rejected, (state, { payload }: any) => {
 			state.status = "failed";
 			state.error = payload;
 			state.orderIngridients = [];
@@ -103,4 +108,5 @@ export const {
 	makeReserveOrderIngridients,
 	clearReserveOrderIngridients,
 	resetOrder,
+	setCurrentOrder
 } = orderSlice.actions;

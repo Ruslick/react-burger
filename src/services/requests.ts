@@ -50,7 +50,7 @@ function requestToUrl(
 			.then((responseData: IResponseData) => {
 				if (responseData.success) {
 					const { accessToken, refreshToken } = responseData;
-					if (accessToken && refreshToken) {
+					if (accessToken && refreshToken && !getCookie('token')) {
 						saveTokens({ accessToken, refreshToken });
 					}
 					return responseData;

@@ -39,15 +39,14 @@ const OrderIngridient: FC<IOrderIngridientProps> = ({
 		dispatch(removeOrderIngridient(ingridient));
 	};
 	const ingridientRef = useRef<HTMLDivElement>(null);
-	const [{ handlerId }, drop] = useDrop<{ index: number }, any, any>({
+	const [{ handlerId }, drop] = useDrop({
 		accept: "orderIngridient",
-		collect(monitor) {
+		collect(monitor: DropTargetMonitor) {
 			return {
 				handlerId: monitor.getHandlerId(),
 			};
 		},
-		hover(item: { index: number }, monitor: DropTargetMonitor) {
-			console.warn(item);
+		hover(item: any, monitor: DropTargetMonitor) {
 			if (!ingridientRef.current) {
 				return;
 			}

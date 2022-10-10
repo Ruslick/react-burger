@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { CloseButton } from "../ui/CloseButton/CloseButton";
 import { IModalProps } from "../../utils/types";
 
-const Modal: FC<IModalProps> = ({ title, children, onClose }) =>  {
+const Modal: FC<IModalProps> = ({ title, children, onClose, padding = 'var(--x10)' }) =>  {
 	useEffect(() => {
 		const keyHandler = (e: KeyboardEventInit) => {
 			if (e.key === "Escape") onClose();
@@ -18,10 +18,10 @@ const Modal: FC<IModalProps> = ({ title, children, onClose }) =>  {
 	}, []);
 
 	return createPortal(
-		<ModalOverlay onClose={onClose}>
+		<ModalOverlay  onClose={onClose}>
 			<div className={styles.modal}>
-				<section className={styles.modelHeader + " mt-10 mr-10 ml-10"}>
-					{title && <p className="text text_type_main-large">{title}</p>}
+				<section className={styles.modelHeader}>
+					{<p className="text text_type_main-large">{title}</p>}
 					<CloseButton onClick={onClose}></CloseButton>
 				</section>
 				{children}

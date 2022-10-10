@@ -118,7 +118,7 @@ function ProfileForm() {
 		<form className={style.form} onSubmit={handleSubmit}>
 			{inputs}
 			<div style={{ display: dirty ? "initial" : "none" }}>
-				<Button htmlType="button" type="primary" onClick={cancelHandle}>
+				<Button htmlType="button" type="secondary" onClick={cancelHandle}>
 					Отмена
 				</Button>
 				<Button htmlType="submit">Сохранить</Button>

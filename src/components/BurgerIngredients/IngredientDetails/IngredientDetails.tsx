@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import styles from "./IngredientDetails.module.css";
 import { useParams } from "react-router-dom";
 import Loading from "../../statuses/Loading/Loading";
@@ -11,14 +11,12 @@ function IngredientDetails() {
 		(store) => store.ingridientsSlice
 	);
 
-	const ingridient = useMemo(
-		() => ingridients.find((i: IIngridient) => i._id === id),
-		[id, ingridients]
-	);
-
 	if (status === "received") {
+		const ingridient =  ingridients.find((i: IIngridient) => i._id === id)
+		if (!ingridient) return null
+
 		const { name, image_large, calories, carbohydrates, fat, proteins } =
-			ingridient as IIngridient;
+			ingridient;
 
 		return (
 			<div className={styles.wrapper}>
