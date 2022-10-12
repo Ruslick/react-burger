@@ -96,7 +96,6 @@ const OrderIngridient: FC<IOrderIngridientProps> = ({
 	const opacity = isDragging ? 0.5 : 1;
 	if (ingridient.type !== "bun") drag(drop(ingridientRef));
 	const preventDefault = (e: SyntheticEvent) => e.preventDefault();
-	console.log(handlerId)
 
 	return (
 		ingridient && (

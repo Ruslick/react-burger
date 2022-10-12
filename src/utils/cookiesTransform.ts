@@ -13,7 +13,6 @@ export const removeCookie = (deletableCookie: string) => {
 };
 
 export const saveTokens = ({ accessToken, refreshToken }: ITokens) => {
-	console.warn('save token')
 	if (accessToken && refreshToken) {
 		document.cookie = `token=${accessToken.split("Bearer ")[1]}`;
 		document.cookie = `refreshToken=${refreshToken} `;

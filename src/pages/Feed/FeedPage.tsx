@@ -20,6 +20,7 @@ export const FeedPage = () => {
 
 	useEffect(() => {
 		connect(ALL_ORDERS_SOCKET_URL);
+		connect(ALL_ORDERS_SOCKET_URL);
 		return () => {
 			disconnect();
 		};

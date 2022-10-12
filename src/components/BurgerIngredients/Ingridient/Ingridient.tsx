@@ -35,7 +35,7 @@ const Ingridient: FC<{ ingridient: IIngridient }> = ({ ingridient }) => {
 		item: ingridient,
 	});
 	return (
-		<li style={{ opacity: canDrag ? 1 : 0.5 }} ref={dragItem}>
+		<li style={{ opacity: canDrag ? 1 : 0.5 }} ref={canDrag && dragItem}>
 			<Link
 				className={styles.item}
 				to={`/ingridient/${_id}`}
