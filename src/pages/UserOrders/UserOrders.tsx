@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { OrderPreview } from "../../components/OrderPreview/OrderPreview";
 import Loading from "../../components/statuses/Loading/Loading";
+import { useWebsocket } from "../../hooks/useWebSocket";
 import { useAppSelector } from "../../services";
-import { useWebsocket } from "../../services/websockets";
 import { USER_ORDERS_SOCKET_URL } from "../../utils/constants";
 import { getCookie } from "../../utils/cookiesTransform";
 
@@ -31,7 +31,7 @@ function UserOrders() {
 	if (isConnected && socketData && status === "received") {
 		const content = socketData.orders.map((order) => {
 			return (
-				<Link state={{from: location.pathname}} to={`/profile/orders/${order._id}`}>
+				<Link key={order.number} state={{from: location.pathname}} to={`/profile/orders/${order._id}`}>
 					<OrderPreview key={order.number} order={order} status={order.status} />
 				</Link>
 			);

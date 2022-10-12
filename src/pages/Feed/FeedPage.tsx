@@ -3,8 +3,8 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { OrderPreview } from "../../components/OrderPreview/OrderPreview";
 import { Stats } from "../../components/Stats/Stats";
 import Loading from "../../components/statuses/Loading/Loading";
+import { useWebsocket } from "../../hooks/useWebSocket";
 import { useAppSelector } from "../../services";
-import { useWebsocket } from "../../services/websockets";
 import { ALL_ORDERS_SOCKET_URL } from "../../utils/constants";
 import styles from "./FeedPage.module.css";
 

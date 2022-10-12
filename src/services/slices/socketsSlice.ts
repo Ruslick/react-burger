@@ -22,7 +22,7 @@ export const socketSlice = createSlice({
 			state.isConnected = true;
 		},
 
-		disconnectWs(state) {
+		closeWs(state) {
 			state.isConnected = false;
 			state.socketData = null;
 		},
@@ -34,7 +34,10 @@ export const socketSlice = createSlice({
 		openWs(state) {
 			state.isConnected = true;
 		},
+		connectWs(_, payload) {},
+		disconnectWs() {},
 	},
 });
 
-export const { openWs, errorWs, messageWs, disconnectWs } = socketSlice.actions;
+export const { openWs, errorWs, messageWs, closeWs, disconnectWs, connectWs } =
+	socketSlice.actions;

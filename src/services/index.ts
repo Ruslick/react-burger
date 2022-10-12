@@ -17,7 +17,7 @@ const  rootReducer =  {
 
 export const store = configureStore({
 	reducer: rootReducer,
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(webSocketMiddleware)
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(webSocketMiddleware(socketSlice.actions))
 });
 
 

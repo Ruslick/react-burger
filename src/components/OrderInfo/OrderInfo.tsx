@@ -1,9 +1,9 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useWebsocket } from "../../hooks/useWebSocket";
 import { useAppDispatch, useAppSelector } from "../../services";
 import { setCurrentOrder } from "../../services/slices/orderSlice";
-import { useWebsocket } from "../../services/websockets";
 import {
 	getFullOrderIngridients,
 	getIngridientsWithCount,
