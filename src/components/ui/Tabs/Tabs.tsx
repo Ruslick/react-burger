@@ -1,20 +1,19 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useMemo } from "react";
 import styles from "./Tabs.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { selectTab } from "../../../services/slices/categoriaSlice";
-import { ICategorias } from "../../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../../services";
 
 function BurgerIngridientsTabs() {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
-	const {ingridientsCategorias, activeCategoria} = useSelector<any, any>(
+	const {ingridientsCategorias, activeCategoria} = useAppSelector(
 		(state) => state.categoriaSlice
 	);
 
 	const tabs = useMemo(
 		() =>
-			ingridientsCategorias.map((c: ICategorias) => {
+			ingridientsCategorias.map((c) => {
 				const selectCategoria = (categoria: string): void => {
 					dispatch(selectTab(categoria));
 				};

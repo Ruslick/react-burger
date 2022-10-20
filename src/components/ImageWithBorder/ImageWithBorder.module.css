@@ -1,0 +1,8 @@
+.image {
+  background-color: black;
+  border: 3px solid var(--primary-color);
+  border-radius: 50%;
+  width: var(--x14);
+  height: var(--x14);
+  object-fit: cover;
+}

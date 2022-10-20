@@ -1,20 +1,19 @@
-import { TCategorias } from "./store";
 import { ReactNode } from "react";
 import { IIngridient } from ".";
 
 export interface IIngridientsCategoriaProps {
-	type: TCategorias;
+	type: string;
 	children: ReactNode;
 	scrollPosition: number;
 }
 
 export interface IAuthTemplateProps {
-	id?: string,
-	title: string,
-	inputs: ReactNode[],
-	button: ReactNode,
-	additionActions: ReactNode[],
-	onSubmit: VoidFunction,
+	id?: string;
+	title: string;
+	inputs: ReactNode[];
+	button: ReactNode;
+	additionActions: ReactNode[];
+	onSubmit: VoidFunction;
 }
 
 export interface IOrderIngridientProps {
@@ -32,6 +31,7 @@ export interface IAdditionalActionProps {
 }
 
 export interface IModalProps {
-	title?: string, 
-	onClose: VoidFunction
+	title?: string;
+	onClose: VoidFunction;
+	padding?: string;
 }

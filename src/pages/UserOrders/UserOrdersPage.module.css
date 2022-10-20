@@ -1,0 +1,7 @@
+.contentList {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--x5);
+  max-height: 65vh;
+  margin-top: calc(-1 * var(--x14));
+}

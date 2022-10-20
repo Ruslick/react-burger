@@ -1,5 +1,4 @@
 import React, { FC, SyntheticEvent, useRef } from "react";
-import { useDispatch } from "react-redux";
 
 import styles from "./OrderIngridient.module.css";
 
@@ -17,6 +16,7 @@ import {
 
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { IOrderIngridientProps } from "../../../utils/types/index";
+import { useAppDispatch } from "../../../services";
 
 const OrderIngridient: FC<IOrderIngridientProps> = ({
 	ingridient,
@@ -25,7 +25,7 @@ const OrderIngridient: FC<IOrderIngridientProps> = ({
 	moveCard,
 	index,
 }) => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const { name, price, image } = ingridient;
 
 	const postfixName =
@@ -39,15 +39,14 @@ const OrderIngridient: FC<IOrderIngridientProps> = ({
 		dispatch(removeOrderIngridient(ingridient));
 	};
 	const ingridientRef = useRef<HTMLDivElement>(null);
-	const [{ handlerId }, drop] = useDrop<{ index: number }, any, any>({
+	const [{ handlerId }, drop] = useDrop({
 		accept: "orderIngridient",
-		collect(monitor) {
+		collect(monitor: DropTargetMonitor) {
 			return {
 				handlerId: monitor.getHandlerId(),
 			};
 		},
-		hover(item: { index: number }, monitor: DropTargetMonitor) {
-			console.warn(item);
+		hover(item: any, monitor: DropTargetMonitor) {
 			if (!ingridientRef.current) {
 				return;
 			}
@@ -80,14 +79,14 @@ const OrderIngridient: FC<IOrderIngridientProps> = ({
 		type: "orderIngridient",
 		item: () => ({ id: ingridient._number, index }),
 		canDrag() {
-			dispatch(makeReserveOrderIngridients(null));
+			dispatch(makeReserveOrderIngridients());
 			return true;
 		},
 		end(_, monitor) {
 			if (!monitor.getDropResult()) {
-				dispatch(backupOrderIngridients(null));
+				dispatch(backupOrderIngridients());
 			}
-			dispatch(clearReserveOrderIngridients(null));
+			dispatch(clearReserveOrderIngridients());
 		},
 
 		collect: (monitor) => ({
@@ -97,7 +96,6 @@ const OrderIngridient: FC<IOrderIngridientProps> = ({
 	const opacity = isDragging ? 0.5 : 1;
 	if (ingridient.type !== "bun") drag(drop(ingridientRef));
 	const preventDefault = (e: SyntheticEvent) => e.preventDefault();
-	console.log(handlerId)
 
 	return (
 		ingridient && (

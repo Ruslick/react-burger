@@ -6,15 +6,15 @@ import {
 
 import AdditionalAction from "../../components/ui/AdditionalAction/AdditionalAction";
 import AuthTemplate from "../../components/AuthTemplate/AuthTemplate";
-import { useDispatch, useSelector } from "react-redux";
 import { postPasswordForgotFetch } from "../../services/requests";
 import { useFormik } from "formik";
 import { ForgotPasswordSchema } from "../../utils/validateSchemas";
 import NavigateWithState from "../../components/hocs/NavigateWithState/NavigateWithState";
+import { useAppDispatch, useAppSelector } from "../../services";
 
 function ForgotPasswordPage() {
-	const dispatch = useDispatch();
-	const sended = useSelector<any, any>(
+	const dispatch = useAppDispatch();
+	const sended = useAppSelector(
 		(store) => store.authSlice.resetPasswordStatus === "sended"
 	);
 

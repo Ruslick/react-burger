@@ -1,6 +1,39 @@
+import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { OutgoingHttpHeaders } from "http";
-import { TCategorias } from "./store";
 
+export interface IWSOrder {
+	_id: string;
+	ingredients: string[];
+	status: string;
+	name: string;
+	createdAt: string;
+	updatedAt: string;
+	number: number;
+}
+
+export interface IWSData {
+	orders: IWSOrder[];
+	success: boolean;
+	total: number;
+	totalToday: number;
+}
+
+export interface IOrder {
+	_id: string;
+	createdAt: string; //"2022-10-05T20:02:19.934Z"
+	ingredients: IIngridient[];
+	name: string;
+	number: number;
+	owner: {
+		name: string;
+		email: string;
+		createdAt: string;
+		updatedAt: string;
+	};
+	price: number;
+	status: string;
+	updatedAt: string;
+}
 export interface IAuthTemplateParams {
 	method: TRequestsMethods;
 	data?: Array<any>;
@@ -15,7 +48,7 @@ export interface ILocation {
 export interface IIngridient {
 	_id: string;
 	name: string;
-	type: TCategorias;
+	type: string;
 	proteins: number;
 	fat: number;
 	carbohydrates: number;
@@ -38,6 +71,8 @@ export interface IResponseData {
 		name: string;
 	};
 	data?: Array<IIngridient>;
+	name: string;
+	order: IOrder;
 }
 export type TRequestsMethods = "GET" | "POST" | "PATCH";
 
@@ -47,5 +82,23 @@ export interface IOptions {
 	body?: {};
 }
 
-export * from "./store";
+export interface ICategorias {
+	type: string;
+	name: string;
+}
+
+export interface ICategoriaSlice {
+	activeCategoria: string;
+	ingridientsCategorias: ICategorias[];
+}
+
+export type TWsActions = {
+	openWs: ActionCreatorWithoutPayload<string>
+	errorWs: ActionCreatorWithoutPayload<string>
+	messageWs: ActionCreatorWithPayload<any, string>
+	closeWs: ActionCreatorWithoutPayload<string>
+	disconnectWs: ActionCreatorWithoutPayload<string>
+	connectWs: ActionCreatorWithPayload<any, string>
+};
+
 export * from "./propsTypes";

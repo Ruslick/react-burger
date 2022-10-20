@@ -1,0 +1,26 @@
+.ordersStats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--x15);
+}
+
+.readiness {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--x8);
+}
+
+.readinessSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--x6);
+}
+
+
+.readinessList {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: var(--x2);
+  grid-template-rows: repeat(10, 1fr);
+}
+

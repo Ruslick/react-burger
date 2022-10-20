@@ -1,15 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../services";
 import { getUsersFetch } from "../services/requests";
 import { resetLoaded } from "../services/slices/authSlice";
 
 function useCheckAuth() {
-	const dispatch = useDispatch();
-	const { isLoaded, user } = useSelector<any, any>((store) => store.authSlice);
+	const dispatch = useAppDispatch();
+	const { isLoaded, user } = useAppSelector((store) => store.authSlice);
 	const checkAuth: VoidFunction = () => {
-		dispatch(getUsersFetch() as any);
+		dispatch(getUsersFetch());
 	};
 	const doResetLoaded: VoidFunction = () => {
-		dispatch(resetLoaded(null) as any);
+		dispatch(resetLoaded());
 	};
 
 	return { isLoaded, user, checkAuth, doResetLoaded };

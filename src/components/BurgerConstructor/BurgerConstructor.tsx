@@ -1,10 +1,10 @@
 import React from "react";
+import { useAppSelector } from "../../services";
 import Order from "./Order/Order";
-import OrderInfo from "./OrderInfo/OrderInfo";
-import { useSelector } from "react-redux";
+import OrderFooter from "./OrderFooter/OrderFooter";
 
 function BurgerConstructor() {
-	const ingridientsCount = useSelector<any, any>(
+	const ingridientsCount = useAppSelector(
 		(state) => state.orderSlice.orderIngridients.length 
 	);
 
@@ -12,7 +12,7 @@ function BurgerConstructor() {
 		<>
 			<div className="pr-4 pl-4">
 				<Order />
-				{ingridientsCount > 2 && <OrderInfo />}
+				{ingridientsCount > 2 && <OrderFooter />}
 			</div>
 		</>
 	);

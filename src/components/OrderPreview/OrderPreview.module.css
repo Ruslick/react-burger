@@ -1,0 +1,38 @@
+.globalOrder {
+  background-color: #1C1C21;
+  border-radius: var(--x10);
+  padding: var(--x6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--x6);
+}
+
+.ingridients {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.ingridient {
+  margin-right: calc(-1 * var(--x4));
+}
+
+
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--x11);
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: var(--x2);
+}

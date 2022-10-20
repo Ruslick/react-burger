@@ -4,7 +4,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useFormik } from "formik";
 import React, { FocusEvent, SyntheticEvent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../services";
 
 import { updateUserData } from "../../services/requests";
 import { RegisterSchema } from "../../utils/validateSchemas";
@@ -12,9 +12,9 @@ import PasswordInput from "../ui/PasswordInput/PasswordInput";
 import style from "./ProfileForm.module.css";
 
 function ProfileForm() {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const [unlockedInput, setUnlockedInput] = useState<string | null>(null);
-	const userData = useSelector<any, { name: string; email: string }>(
+	const userData = useAppSelector(
 		(store) => store.authSlice.user || {}
 	);
 
@@ -118,7 +118,7 @@ function ProfileForm() {
 		<form className={style.form} onSubmit={handleSubmit}>
 			{inputs}
 			<div style={{ display: dirty ? "initial" : "none" }}>
-				<Button htmlType="button" type="primary" onClick={cancelHandle}>
+				<Button htmlType="button" type="secondary" onClick={cancelHandle}>
 					Отмена
 				</Button>
 				<Button htmlType="submit">Сохранить</Button>

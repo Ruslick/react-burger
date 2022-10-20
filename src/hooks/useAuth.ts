@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../services";
 import {
 	postLoginFetch,
 	postLogoutFetch,
@@ -6,8 +6,8 @@ import {
 } from "../services/requests";
 
 function useAuth() {
-	const dispatch = useDispatch();
-	const { isLoaded, user } = useSelector<any, any>((store) => {
+	const dispatch = useAppDispatch();
+	const { isLoaded, user } = useAppSelector((store) => {
 		return store.authSlice;
 	});
 	class Auth {
@@ -15,13 +15,13 @@ function useAuth() {
 		static isLoaded = isLoaded;
 		
 		static login(data: object) {
-			dispatch(postLoginFetch(data) as any);
+			dispatch(postLoginFetch(data));
 		}
 		static register(data: object) {
-			dispatch(postRegisterFetch(data) as any);
+			dispatch(postRegisterFetch(data));
 		}
 		static logout() {
-			dispatch(postLogoutFetch() as any);
+			dispatch(postLogoutFetch());
 		}
 	}
 	return Auth;

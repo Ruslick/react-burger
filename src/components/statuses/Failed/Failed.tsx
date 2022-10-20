@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import { createPortal } from "react-dom";
+import ModalOverlay from "../../Modal/ModalOverlay/ModalOverlay";
 
 function Failed() {
-  return (
-    <p className='text'>Failed</p>
-  )
+	return createPortal(
+		<ModalOverlay onClose={() => {}}>
+			<p className="text">Произошла ошибка, пожалуйста перезагрузите страницу :(</p>
+		</ModalOverlay>,
+		document.getElementById("loader") as HTMLElement
+	);
 }
 
-export default Failed
+export default Failed;

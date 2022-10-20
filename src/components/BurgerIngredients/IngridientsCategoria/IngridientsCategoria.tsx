@@ -1,29 +1,28 @@
 import React, { FC, useEffect, useMemo, useRef } from "react";
 import styles from "./IngridientsCategoria.module.css";
 import Ingridient from "../Ingridient/Ingridient";
-import { useDispatch, useSelector } from "react-redux";
 import { selectTab } from "../../../services/slices/categoriaSlice";
 import { IIngridient, IIngridientsCategoriaProps } from "../../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../../services";
 
 const IngridientsCategoria: FC<IIngridientsCategoriaProps> = ({
 	type,
 	children,
 	scrollPosition,
 }) => {
-	const dispatch = useDispatch();
-	
-	const ingridients = useSelector<any, any>(
+	const dispatch = useAppDispatch();
+
+	const ingridients = useAppSelector(
 		(state) => state.ingridientsSlice.ingridients
 	);
 
 	const currentElementRef = useRef<HTMLLIElement>();
 	useEffect(() => {
 		if (!currentElementRef.current) return;
-		const topPosition = currentElementRef.current.offsetTop;
-		const bottomPosition =
-			currentElementRef.current.offsetTop +
-			currentElementRef.current.offsetHeight;
-		if (topPosition <= scrollPosition && scrollPosition <= bottomPosition) {
+		const ref = currentElementRef.current;
+		
+		const bottomPosition = ref.offsetTop + ref.offsetHeight;
+		if (ref.offsetTop <= scrollPosition && scrollPosition <= bottomPosition) {
 			dispatch(selectTab(type));
 		}
 	}, [dispatch, scrollPosition, type]);
@@ -32,7 +31,9 @@ const IngridientsCategoria: FC<IIngridientsCategoriaProps> = ({
 		return (
 			ingridients &&
 			ingridients
-				.filter((ingridient: IIngridient) => ingridient.type === type)
+				.filter((ingridient: IIngridient) => {
+					return ingridient.type === type
+				})
 				.map((ingridient: IIngridient) => (
 					<Ingridient key={ingridient._id} ingridient={ingridient} />
 				))

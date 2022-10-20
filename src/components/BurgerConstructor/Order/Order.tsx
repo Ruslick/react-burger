@@ -1,5 +1,4 @@
 import React, { ReactElement, useCallback, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
 import OrderIngridient from "../OrderIngridient/OrderIngridient";
@@ -13,10 +12,11 @@ import {
 } from "../../../services/slices/orderSlice";
 
 import { IIngridient } from "../../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../../services";
 
 function Order() {
-	const dispatch = useDispatch();
-	const { currentBun, orderIngridients } = useSelector<any, any>(
+	const dispatch = useAppDispatch();
+	const { currentBun, orderIngridients } = useAppSelector(
 		(state) => state.orderSlice
 	);
 	const [, ingridientDropTarget] = useDrop({
@@ -69,7 +69,7 @@ function Order() {
 			) : (
 				<>
 					<OrderIngridient
-						ingridient={currentBun}
+						ingridient={currentBun as IIngridient}
 						position={"top"}
 						isLocked={true}
 						moveCard={moveCard}
@@ -86,7 +86,7 @@ function Order() {
 						)}
 					</div>
 					<OrderIngridient
-						ingridient={currentBun}
+						ingridient={currentBun as IIngridient}
 						position={"bottom"}
 						isLocked={true}
 						moveCard={moveCard}

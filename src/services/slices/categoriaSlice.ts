@@ -11,10 +11,8 @@ export const categoriaSlice = createSlice({
 		],
 	},
 	reducers: {
-		selectTab: {
-			reducer: (state, { payload }) => {
-				state.activeCategoria = payload;
-			},
+		selectTab(state, { payload }) {
+			state.activeCategoria = payload;
 		},
 	},
 });
