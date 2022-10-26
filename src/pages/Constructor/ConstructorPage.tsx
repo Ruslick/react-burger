@@ -38,7 +38,7 @@ function ConstructorPage() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [error, status]);
 
-	return <section className={styles.wrapper}>{content}</section>;
+	return <section data-testid="homepage" className={styles.wrapper}>{content}</section>;
 }
 
 export default ConstructorPage;

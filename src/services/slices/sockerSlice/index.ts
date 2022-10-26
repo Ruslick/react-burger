@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IWSData } from "../../utils/types";
+import { IWSData } from "../../../utils/types";
 
 interface IState {
 	isConnected: boolean;

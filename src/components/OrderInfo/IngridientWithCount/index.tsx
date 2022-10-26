@@ -1,7 +1,7 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import { Link } from "react-router-dom";
-import { IIngridientWithCount } from "../../../utils";
+import { IIngridientWithCount } from "../../../utils/types";
 import { ImageWithBorder } from "../../ImageWithBorder/ImageWithBorder";
 
 import styles from "../OrderInfo.module.css";

@@ -1,15 +1,14 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useMemo } from "react";
 import styles from "./Tabs.module.css";
-import { selectTab } from "../../../services/slices/categoriaSlice";
+import { getActivecategoria, getIngridientsCategorias, selectTab } from "../../../services/slices/categoriaSlice";
 import { useAppDispatch, useAppSelector } from "../../../services";
 
 function BurgerIngridientsTabs() {
 	const dispatch = useAppDispatch();
 
-	const {ingridientsCategorias, activeCategoria} = useAppSelector(
-		(state) => state.categoriaSlice
-	);
+	const ingridientsCategorias = useAppSelector(getIngridientsCategorias);
+	const activeCategoria = useAppSelector(getActivecategoria);
 
 	const tabs = useMemo(
 		() =>

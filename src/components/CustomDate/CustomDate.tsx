@@ -1,27 +1,13 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { getDayMessage } from "../../utils";
 
 export const CustomDate: React.FC<{ dateString: string }> = ({
 	dateString,
 }) => {
-	const date = new Date(dateString);
-	const dateNow = new Date();
-	const daysPast = Math.round(
-		(dateNow.valueOf() - date.valueOf()) / 1000 / 3600 / 24
+	const dateMessage = useMemo(
+		() => getDayMessage(new Date(dateString), new Date()),
+		[dateString]
 	);
 
-	const hours = date.getHours();
-
-	const minutesWithoutZero = date.getMinutes();
-
-	const minutes =
-		minutesWithoutZero < 10
-			? "0" + minutesWithoutZero.toString()
-			: minutesWithoutZero.toString();
-
-	return (
-		<p className="text text_color_inactive">
-			{getDayMessage(daysPast)}, {hours}:{minutes}
-		</p>
-	);
+	return <p className="text text_color_inactive">{dateMessage}</p>;
 };

@@ -7,13 +7,13 @@ import { setCurrentOrder } from "../../services/slices/orderSlice";
 import {
 	getFullOrderIngridients,
 	getIngridientsWithCount,
-	IIngridientWithCount,
 } from "../../utils";
 import {
 	ALL_ORDERS_SOCKET_URL,
 	USER_ORDERS_SOCKET_URL,
 } from "../../utils/constants";
 import { getCookie } from "../../utils/cookiesTransform";
+import { IIngridientWithCount } from "../../utils/types";
 import { CustomDate } from "../CustomDate/CustomDate";
 import Loading from "../statuses/Loading/Loading";
 import { IngridientWithCount } from "./IngridientWithCount";
