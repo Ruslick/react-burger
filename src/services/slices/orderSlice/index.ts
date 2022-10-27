@@ -1,12 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v1 as getRandomId } from "uuid";
-import { IIngridient, IOrder} from "../../utils/types";
-import { postOrderFetch } from "../requests";
-
-const calcTotalPrice = (ingridients: IIngridient[]) =>
-	ingridients.reduce((prev, cur) => (prev += cur.price), 0);
-
-
+import { calcTotalPrice } from "../../../utils";
+import { IIngridient, IOrder } from "../../../utils/types";
+import { postOrderFetch } from "../../requests";
 
 interface IState {
 	status: string;
@@ -16,8 +12,7 @@ interface IState {
 	orderIngridients: IIngridient[];
 	reserveOrderIngridients: IIngridient[];
 	totalPrice: number;
-	isOpenedModal: boolean;
-	currentOrder? : number
+	currentOrder?: number;
 }
 
 const initialState: IState = {
@@ -30,11 +25,8 @@ const initialState: IState = {
 	reserveOrderIngridients: [],
 
 	totalPrice: 0,
-	isOpenedModal: false,
-	currentOrder: undefined
+	currentOrder: undefined,
 };
-
-
 
 export const orderSlice = createSlice({
 	name: "order",
@@ -73,31 +65,31 @@ export const orderSlice = createSlice({
 		resetOrder() {
 			return { ...initialState };
 		},
-		setCurrentOrder(state, {payload}) {
-			state.currentOrder = payload
-		}
+		setCurrentOrder(state, { payload }) {
+			state.currentOrder = payload;
+		},
 	},
 	extraReducers(builder) {
 		builder
-		.addCase(postOrderFetch.pending, (state) => {
-			state.status = "loading";
-		})
-		.addCase(postOrderFetch.fulfilled, (state, { payload }) => {
-			state.status = "received";
-			state.order = payload.order;
-			state.orderIngridients = [];
-			state.currentBun = undefined;
-		})
-		.addCase(postOrderFetch.rejected, (state, { payload }: any) => {
-			state.status = "failed";
-			state.error = payload;
-			state.orderIngridients = [];
-			state.currentBun = undefined;
-		})
-	}
-})
-	
-		
+			.addCase(postOrderFetch.pending, (state) => {
+				state.status = "loading";
+			})
+			.addCase(postOrderFetch.fulfilled, (state, { payload }) => {
+				state.status = "received";
+				state.error = undefined;
+				state.order = payload.order;
+				state.orderIngridients = [];
+				state.currentBun = undefined;
+			})
+			.addCase(postOrderFetch.rejected, (state, { error }: any) => {
+				return {
+					...initialState,
+					status: "failed",
+					error: error.message ? error.message : "fetch error",
+				};
+			});
+	},
+});
 
 export const {
 	switchBun,
@@ -108,5 +100,5 @@ export const {
 	makeReserveOrderIngridients,
 	clearReserveOrderIngridients,
 	resetOrder,
-	setCurrentOrder
+	setCurrentOrder,
 } = orderSlice.actions;

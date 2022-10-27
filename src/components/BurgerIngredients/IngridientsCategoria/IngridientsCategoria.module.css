@@ -13,3 +13,11 @@
   align-content: center;
   justify-items: center;
 }
+
+@media (max-width: 1200px) {
+
+  .list {
+    grid-template-columns: 1fr;
+
+  }
+}

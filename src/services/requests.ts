@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import { RootState } from ".";
 import {
 	USER_DATA_URL,
@@ -19,7 +20,7 @@ import {
 	postOption,
 	postOptionWithAuthToken,
 } from "../utils/fetchOptions";
-import { IResponseData } from "../utils/types";
+import { IResponseIngridients } from "../utils/types/response";
 import { IIngridient } from "../utils/types/index";
 
 const getTokens = () => {
@@ -28,13 +29,11 @@ const getTokens = () => {
 	return requestToUrl(UPDATE_TOKEN_URL, postOption({ token }));
 };
 
-function requestToUrl(
-	url: string,
-	options: () => RequestInit
-) {
+export function requestToUrl(url: string, options: () => RequestInit) {
 	try {
 		return fetch(url, options())
 			.then(async (res: Response) => {
+				if (res.status === 404) return Promise.reject("url not found");
 				if (!res.ok || res.status === 403) {
 					const responseData = await res.json();
 					if (responseData.message === "jwt expired") {
@@ -47,15 +46,15 @@ function requestToUrl(
 				return res;
 			})
 			.then((res: Response) => res.json())
-			.then((responseData: IResponseData) => {
-				if (responseData.success) {
+			.then((responseData: any) => {
+				if (responseData?.success) {
 					const { accessToken, refreshToken } = responseData;
-					if (accessToken && refreshToken && !getCookie('token')) {
+					if (accessToken && refreshToken && !getCookie("token")) {
 						saveTokens({ accessToken, refreshToken });
 					}
 					return responseData;
 				}
-				return Promise.reject(responseData);
+				return Promise.reject("fetch error");
 			});
 	} catch (e) {
 		return Promise.reject(e);
@@ -66,18 +65,18 @@ function requestToUrl(
 export const getIngridientsFetch = createAsyncThunk(
 	"ingridients/getIngridientsFetch",
 	async () => {
-		return await requestToUrl(INGRIDIENTS_URL, getOption())
-		.then(
-			(requestData: IResponseData) => requestData.data
-		)
+		// return await requestToUrl(INGRIDIENTS_URL, getOption())
+		return await requestToUrl(INGRIDIENTS_URL, getOption()).then(
+			(requestData: IResponseIngridients) => requestData.data
+		);
 	}
 );
 
 // пост запрос заказа и получение номера заказа
 export const postOrderFetch = createAsyncThunk(
 	"ingridients/postOrderFetch",
-	async (_, thunkAPI)  => {
-		const rootState = thunkAPI.getState() as RootState
+	async (_, thunkAPI) => {
+		const rootState = thunkAPI.getState() as RootState;
 		const data = {
 			ingredients: rootState.orderSlice.orderIngridients.map(
 				(ingridient: IIngridient) => ingridient._id

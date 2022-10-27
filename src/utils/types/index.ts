@@ -62,18 +62,13 @@ export interface IIngridient {
 	_number?: number;
 }
 
-export interface IResponseData {
-	success: boolean;
-	accessToken?: string;
-	refreshToken?: string;
-	user?: {
-		email: string;
-		name: string;
-	};
-	data?: Array<IIngridient>;
-	name: string;
-	order: IOrder;
+export interface IIngridientWithCount {
+	ingridient: IIngridient;
+	count: number;
 }
+
+
+
 export type TRequestsMethods = "GET" | "POST" | "PATCH";
 
 export interface IOptions {
