@@ -3,7 +3,6 @@
 # Stellar Burger
 
 This is a cafe on the edge of the universe, where you can assemble a burger to your taste.
-
 You can view this project on the website: http://motsukov-app.nomoredomains.icu/
 
 
@@ -28,11 +27,11 @@ You can view this project on the website: http://motsukov-app.nomoredomains.icu/
 
 [Cypress](https://www.cypress.io/) - for e2e tests
 
-[WebSockets]([https://www.cypress.io/](https://developer.mozilla.org/ru/docs/Web/API/WebSockets_API)) - for two-way interactive communication
+[WebSockets](https://developer.mozilla.org/ru/docs/Web/API/WebSockets_API) - for two-way interactive communication
 
-
-
-
+### .
+### .
+### .
 ## Getting Started
 
 These instructions will give you a copy of the project up and running on
@@ -40,10 +39,8 @@ your local machine for development and testing purposes. See deployment
 for notes on deploying the project on a live system.
 
 ### Prerequisites
-
 Requirements for the software and other tools to build, test and push 
 - [NodeJs](https://nodejs.org/en/)
-
 ### Installing
 
 A step by step series of examples that tell you how to get a development
@@ -52,11 +49,11 @@ environment running
 Clone the project to any folder:
 
     git clone https://github.com/Ruslick/react-burger.git
-
+    
 Go to folder:
 
     cd ./react-burger
-
+    
 Install dependencies:
 
     npm install
@@ -66,7 +63,7 @@ And run project:
     npm start
     
 
-## Running the tests
+### Running the tests
 
 There are 2 different testing tools used in this repo: Cypress (for e2e tests), and Jest (for unit tests).
 
