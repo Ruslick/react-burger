@@ -1,5 +1,5 @@
-##project located at 
-##http://motsukov-app.nomoredomains.icu/
+## project located at 
+## http://motsukov-app.nomoredomains.icu/
 
 ## Available Scripts
 
