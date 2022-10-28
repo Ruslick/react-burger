@@ -1,10 +1,16 @@
+
+
 # Stellar Burger
 
 This is a cafe on the edge of the universe, where you can assemble a burger to your taste.
 
 You can view this project on the website: http://motsukov-app.nomoredomains.icu/
 
+
+![image](https://user-images.githubusercontent.com/80598450/198690491-c9ddf5a3-d295-49b3-92fe-cbe4ed05e028.png)
+
 ## Technologies and packages that were used
+
 
 [React](https://ru.reactjs.org/) - for UI
 
@@ -22,6 +28,7 @@ You can view this project on the website: http://motsukov-app.nomoredomains.icu/
 
 [Cypress](https://www.cypress.io/) - for e2e tests
 
+WebSockets
 
 
 ## Getting Started
