@@ -4,7 +4,7 @@ This is a cafe on the edge of the universe, where you can assemble a burger to y
 
 You can view this project on the website: http://motsukov-app.nomoredomains.icu/
 
-## Technologies and packages that I used
+## Technologies and packages that were used
 
 [React](https://ru.reactjs.org/) - for UI
 
