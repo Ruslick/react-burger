@@ -28,7 +28,9 @@ You can view this project on the website: http://motsukov-app.nomoredomains.icu/
 
 [Cypress](https://www.cypress.io/) - for e2e tests
 
-WebSockets
+[WebSockets]([https://www.cypress.io/](https://developer.mozilla.org/ru/docs/Web/API/WebSockets_API)) - for two-way interactive communication
+
+
 
 
 ## Getting Started
